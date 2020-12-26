@@ -125,6 +125,7 @@ $jabatan = $result->jabatan;
         $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
         $this->db->where('tahun', $_GET['tahun']);
         $this->db->where('periode', $_GET['periode']);
+        $this->db->where('isdelete', '0');
         $this->db->group_by('kode_jenis_belanja');
         $result = $this->db->get('v_pengadaan_barang')->result();
         foreach ($result as $dt) {
@@ -142,6 +143,7 @@ $jabatan = $result->jabatan;
             $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
             $this->db->where('tahun', $_GET['tahun']);
             $this->db->where('periode', $_GET['periode']);
+            $this->db->where('isdelete', '0');
             $this->db->where('kode_jenis_belanja', $dt->kode_jenis_belanja);
             $result2 = $this->db->get('v_pengadaan_barang')->result();
             foreach ($result2 as $dt2) {
