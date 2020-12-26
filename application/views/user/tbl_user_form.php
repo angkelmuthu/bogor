@@ -48,6 +48,13 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td width='200'>Level User <?php echo form_error('id_user_level') ?></td>
+                                    <td>
+                                        <?php echo select2_dinamis('kode_unit', 'm_unit_kerja', 'kode_unit', 'nama_unit', $kode_unit, 'ASC') ?>
+                                        <!--<input type="text" class="form-control" name="id_user_level" id="id_user_level" placeholder="Id User Level" value="<?php echo $id_user_level; ?>" />-->
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td width='200'>Status Aktif <?php echo form_error('is_aktif') ?></td>
                                     <td>
                                         <?php echo form_dropdown('is_aktif', array('y' => 'AKTIF', 'n' => 'TIDAK AKTIF'), $is_aktif, array('class' => 'form-control')); ?>
@@ -75,3 +82,6 @@
 </main>
 <script src="<?php echo base_url() ?>assets/smartadmin/js/vendors.bundle.js"></script>
 <script src="<?php echo base_url() ?>assets/smartadmin/js/app.bundle.js"></script>
+<script src="<?php echo base_url() ?>assets/smartadmin/js/formplugins/select2/select2.bundle.js"></script>
+<script src="<?php echo base_url() ?>assets/smartadmin/js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+<script src="<?php echo base_url() ?>assets/smartadmin/js/kostum.js"></script>

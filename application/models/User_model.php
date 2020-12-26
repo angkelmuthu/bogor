@@ -18,11 +18,12 @@ class User_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('id_users,full_name,email,nama_level,is_aktif');
+        $this->datatables->select('id_users,full_name,email,nama_unit,nama_level,is_aktif');
         $this->datatables->from('tbl_user');
         $this->datatables->add_column('is_aktif', '$1', 'rename_string_is_aktif(is_aktif)');
         //add this line for join
         $this->datatables->join('tbl_user_level', 'tbl_user.id_user_level = tbl_user_level.id_user_level');
+        $this->datatables->join('m_unit_kerja', 'tbl_user.kode_unit = m_unit_kerja.kode_unit');
         $this->datatables->add_column('action', anchor(site_url('user/update/$1'), '<i class="fal fa-pencil" aria-hidden="true"></i>', array('class' => 'btn btn-warning btn-sm waves-effect waves-themed')) . "
                 " . anchor(site_url('user/delete/$1'), '<i class="fal fa-trash" aria-hidden="true"></i>', 'class="btn btn-danger btn-sm waves-effect waves-themed" onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id_users');
         return $this->datatables->generate();

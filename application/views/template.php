@@ -29,7 +29,7 @@
     <!--<link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
 </head>
 
-<body class="mod-bg-1 mod-pace-custom nav-function-fixed desktop chrome webkit pace-done blur">
+<body class="mod-bg-1 mod-pace-custom nav-function-fixed header-function-fixed nav-function-top nav-mobile-push desktop chrome webkit pace-done blur">
     <!-- DOC: script to save and load page settings -->
     <script>
         /**

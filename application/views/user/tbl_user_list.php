@@ -25,6 +25,7 @@
                                     <th width="30px">No</th>
                                     <th>Full Name</th>
                                     <th>Email</th>
+                                    <th>Unit Kerja</th>
                                     <th>Nama Level</th>
                                     <th>Status</th>
                                     <th width="200px">Action</th>
@@ -83,6 +84,8 @@
                     "data": "full_name"
                 }, {
                     "data": "email"
+                }, {
+                    "data": "nama_unit"
                 }, {
                     "data": "nama_level"
                 }, {
