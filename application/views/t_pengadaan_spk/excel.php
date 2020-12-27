@@ -1,18 +1,18 @@
 <?php
 
-// header("Content-type: application/vnd-ms-excel");
+header("Content-type: application/vnd-ms-excel");
 
-// header("Content-Disposition: attachment; filename=Laporan_Pengadaan_barang.xls");
+header("Content-Disposition: attachment; filename=Laporan_Pengadaan_barang.xls");
 
-// header("Pragma: no-cache");
+header("Pragma: no-cache");
 
-// header("Expires: 0");
+header("Expires: 0");
 
 ///////////jenis belanja///////////////////////////
 $this->db->select('nama_jenis_belanja');
 $this->db->where('kode_jenis_belanja', $_GET['kode_jenis_belanja']);
 $this->db->group_by('kode_jenis_belanja');
-$result = $this->db->get('t_pengadaan_barang')->row();
+$result = $this->db->get('v_pengadaan_spk_detail')->row();
 $jenis_belanja = $result->nama_jenis_belanja;
 
 ///////////pegawai///////////////////////////
@@ -127,15 +127,15 @@ $jabatan = $result->jabatan;
         $this->db->where('periode', $_GET['periode']);
         $this->db->where('isdelete', '0');
         $this->db->group_by('kode_jenis_belanja');
-        $result = $this->db->get('v_pengadaan_barang')->result();
+        $result = $this->db->get('v_pengadaan_spk_detail')->result();
         foreach ($result as $dt) {
         ?>
             <tr>
                 <td></td>
                 <td><?php echo $dt->kode_jenis_belanja; ?></td>
-                <td><?php echo $dt->nama_jenis_belanja; ?></td>
+                <td><b><?php echo $dt->nama_jenis_belanja; ?></b></td>
                 <td colspan="6"></td>
-                <td><?php echo $dt->ttl; ?></td>
+                <td><b><?php echo $dt->ttl; ?></b></td>
                 <td colspan="3"></td>
             </tr>
             <?php
@@ -145,37 +145,98 @@ $jabatan = $result->jabatan;
             $this->db->where('periode', $_GET['periode']);
             $this->db->where('isdelete', '0');
             $this->db->where('kode_jenis_belanja', $dt->kode_jenis_belanja);
-            $result2 = $this->db->get('v_pengadaan_barang')->result();
+            $this->db->group_by('kode_kelompok_barang');
+            $result2 = $this->db->get('v_pengadaan_spk_detail')->result();
             foreach ($result2 as $dt2) {
             ?>
                 <tr>
                     <td><?php echo $i ?></td>
                     <td><?php echo $dt2->kode_kelompok_barang; ?></td>
                     <td><?php echo $dt2->nama_kelompok_barang; ?></td>
-                    <td><?php echo $dt2->tanggal_kontrak; ?></td>
-                    <td><?php echo $dt2->no_kontrak; ?></td>
-                    <td><?php echo $dt2->tanggal_ba; ?></td>
-                    <td><?php echo $dt2->no_ba; ?></td>
-                    <td><?php echo $dt2->jumlah_barang . ' ' . $dt2->satuan; ?></td>
-                    <td><?php echo $dt2->harga_satuan; ?></td>
-                    <td><?php echo $dt2->total; ?></td>
-                    <td><?php echo $dt2->nama_unit_peruntukan; ?></td>
-                    <td><?php echo $dt2->nama_perusahaan; ?></td>
-                    <td><?php echo $dt2->keterangan; ?></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                 </tr>
+                <?php $i++;
+
+                $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+                $this->db->where('tahun', $_GET['tahun']);
+                $this->db->where('periode', $_GET['periode']);
+                $this->db->where('isdelete', '0');
+                $this->db->where('kode_jenis_belanja', $dt2->kode_jenis_belanja);
+                $this->db->where('kode_kelompok_barang', $dt2->kode_kelompok_barang);
+                $this->db->group_by('barang');
+                $result3 = $this->db->get('v_pengadaan_spk_detail')->result();
+                foreach ($result3 as $dt3) {
+                ?>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><?php echo $dt3->barang; ?></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <?php
+                    $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+                    $this->db->where('tahun', $_GET['tahun']);
+                    $this->db->where('periode', $_GET['periode']);
+                    $this->db->where('isdelete', '0');
+                    $this->db->where('kode_jenis_belanja', $dt3->kode_jenis_belanja);
+                    $this->db->where('kode_kelompok_barang', $dt3->kode_kelompok_barang);
+                    $this->db->where('barang', $dt3->barang);
+                    $result3 = $this->db->get('v_pengadaan_spk_detail')->result();
+                    foreach ($result3 as $dt3) {
+                    ?>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><?php echo $dt3->spesifikasi_barang; ?></td>
+                            <td><?php echo $dt3->tanggal_kontrak; ?></td>
+                            <td><?php echo $dt3->no_kontrak; ?></td>
+                            <td><?php echo $dt3->tanggal_ba; ?></td>
+                            <td><?php echo $dt3->no_ba; ?></td>
+                            <td><?php echo $dt3->jumlah_barang . ' ' . $dt3->satuan; ?></td>
+                            <td><?php echo $dt3->harga_satuan; ?></td>
+                            <td><?php echo $dt3->total; ?></td>
+                            <td><?php echo $dt3->nama_unit_peruntukan; ?></td>
+                            <td><?php echo $dt3->nama_perusahaan; ?></td>
+                            <td><?php echo $dt3->keterangan; ?></td>
+                        </tr>
         <?php
-                $i++;
+                    }
+                }
             }
         }
         ?>
-
+        <?php foreach ($result as $dt) { ?>
+            <tr>
+                <td colspan="9"><b>JUMLAH <?php echo strtoupper($dt->nama_jenis_belanja) ?> PERIODE <?php echo $_GET['periode']; ?> TAHUN <?php echo $_GET['tahun']; ?> <?php echo strtoupper($this->session->userdata('nama_unit')) ?></b></td>
+                <td><b><?php echo $dt->ttl ?></b></td>
+                <td colspan="3"></td>
+            </tr>
+        <?php } ?>
     </table>
     <table width="100%">
         <tr></tr>
         <tr></tr>
         <tr>
             <th colspan="9"></th>
-            <th colspan="4"><?php echo date('d-m-Y'); ?></th>
+            <th colspan="4"><?php echo strtoupper($this->session->userdata('nama_kabupaten')) ?>, <?php echo date('d-m-Y'); ?></th>
         </tr>
         <tr>
             <th colspan="9"></th>

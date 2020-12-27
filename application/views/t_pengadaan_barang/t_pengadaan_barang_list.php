@@ -71,84 +71,93 @@ if (isset($_GET['periode'])) {
                                 </div>
                             </div>
                         </div>
-                        <table class="table table-bordered table-hover table-striped w-100" id="dt-basic-example">
-                            <thead>
-                                <tr>
-                                    <th width="30px">No</th>
-                                    <!-- <th>Tahun</th>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped w-100" id="dt-basic-example">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th width="30px">No</th>
+                                        <!-- <th>Tahun</th>
                                     <th>Periode</th> -->
-                                    <!-- <th>Kode Kabupaten</th>
+                                        <!-- <th>Kode Kabupaten</th>
                                     <th>Kode Unit</th> -->
-                                    <th>Kode Jenis Belanja</th>
-                                    <th>Nama Jenis Belanja</th>
-                                    <th>Kode Kelompok Barang</th>
-                                    <th>Nama Kelompok Barang</th>
-                                    <th>Barang</th>
-                                    <!-- <th>Spesifikasi Barang</th> -->
-                                    <th>Tanggal Kontrak</th>
-                                    <th>No Kontrak</th>
-                                    <th>Tanggal Ba</th>
-                                    <th>No Ba</th>
-                                    <!-- <th>Jumlah Barang</th>
-                                    <th>Satuan</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Total</th>
-                                    <th>Kode Unit Peruntukan</th>
-                                    <th>Id Vendor</th>
-                                    <th>Keterangan</th>
-                                    <th>Created By</th>
+                                        <th>Kode Jenis Belanja</th>
+                                        <th>Nama Jenis Belanja</th>
+                                        <th>Kode Kelompok Barang</th>
+                                        <th>Nama Kelompok Barang</th>
+                                        <th>Barang</th>
+                                        <th>Spesifikasi Barang</th>
+                                        <th>Tanggal Kontrak</th>
+                                        <th>No. Kontrak</th>
+                                        <th>Tanggal Berita Acara</th>
+                                        <th>No. Berita Acara</th>
+                                        <th>Jumlah Barang</th>
+                                        <th>Satuan</th>
+                                        <th>Harga Satuan</th>
+                                        <th>Total</th>
+                                        <th>Unit Peruntukan</th>
+                                        <th>Vendor</th>
+                                        <th>Keterangan</th>
+                                        <!-- <th>Created By</th>
                                     <th>Created Date</th>
                                     <th>Updated By</th>
                                     <th>Updated Date</th>
                                     <th>Isdelete</th> -->
-                                    <th width="120px">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $i = 1;
-                                foreach ($all as $dt) { ?>
-                                    <tr>
-                                        <td><?php echo $i ?></td>
-                                        <td><?php echo $dt->kode_jenis_belanja ?></td>
-                                        <td><?php echo $dt->nama_jenis_belanja ?></td>
-                                        <td><?php echo $dt->kode_kelompok_barang ?></td>
-                                        <td><?php echo $dt->nama_kelompok_barang ?></td>
-                                        <td><?php echo $dt->barang ?></td>
-                                        <!-- <td>Spesifikasi Barang</td> -->
-                                        <td><?php echo $dt->tanggal_kontrak ?></td>
-                                        <td><?php echo $dt->no_kontrak ?></td>
-                                        <td><?php echo $dt->tanggal_ba ?></td>
-                                        <td><?php echo $dt->no_ba ?></td>
-                                        <td>
-                                            <?php echo anchor(site_url('t_pengadaan_barang/read/' . $dt->id), '<i class="fal fa-eye" aria-hidden="true"></i>', 'class="btn btn-info btn-sm waves-effect waves-themed"'); ?>
-                                            <?php echo anchor(site_url('t_pengadaan_barang/update/' . $dt->id), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-sm waves-effect waves-themed"'); ?>
-                                            <button type="button" class="btn btn-danger btn-sm waves-effect waves-themed" data-toggle="modal" data-target="#default-example-modal-sm<?php echo $dt->id ?>"><i class="fal fa-trash" aria-hidden="true"></i></button>
-                                            <div class="modal fade" id="default-example-modal-sm<?php echo $dt->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog modal-sm" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header bg-info">
-                                                            <h5 class="modal-title">INFO!</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <p>Apakah Anda Yakin Ingin Menghapus?</p>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                            <a href="<?php echo base_url() ?>t_pengadaan_barang/delete/<?php echo $dt->id ?>" class="btn btn-primary">Ya, Hapus</a>
+                                        <th width="120px">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $i = 1;
+                                    foreach ($all as $dt) { ?>
+                                        <tr>
+                                            <td><?php echo $i ?></td>
+                                            <td><?php echo $dt->kode_jenis_belanja ?></td>
+                                            <td><?php echo $dt->nama_jenis_belanja ?></td>
+                                            <td><?php echo $dt->kode_kelompok_barang ?></td>
+                                            <td><?php echo $dt->nama_kelompok_barang ?></td>
+                                            <td><?php echo $dt->barang ?></td>
+                                            <td><?php echo $dt->spesifikasi_barang ?></td>
+                                            <td><?php echo $dt->tanggal_kontrak ?></td>
+                                            <td><?php echo $dt->no_kontrak ?></td>
+                                            <td><?php echo $dt->tanggal_ba ?></td>
+                                            <td><?php echo $dt->no_ba ?></td>
+                                            <td><?php echo $dt->jumlah_barang ?></td>
+                                            <td><?php echo $dt->satuan ?></td>
+                                            <td><?php echo $dt->harga_satuan ?></td>
+                                            <td><?php echo $dt->total ?></td>
+                                            <td><?php echo $dt->nama_unit_peruntukan ?></td>
+                                            <td><?php echo $dt->nama_perusahaan ?></td>
+                                            <td><?php echo $dt->keterangan ?></td>
+                                            <td>
+                                                <?php echo anchor(site_url('t_pengadaan_barang/read/' . $dt->id), '<i class="fal fa-eye" aria-hidden="true"></i>', 'class="btn btn-info btn-sm waves-effect waves-themed"'); ?>
+                                                <?php echo anchor(site_url('t_pengadaan_barang/update/' . $dt->id), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-sm waves-effect waves-themed"'); ?>
+                                                <button type="button" class="btn btn-danger btn-sm waves-effect waves-themed" data-toggle="modal" data-target="#default-example-modal-sm<?php echo $dt->id ?>"><i class="fal fa-trash" aria-hidden="true"></i></button>
+                                                <div class="modal fade" id="default-example-modal-sm<?php echo $dt->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header bg-info">
+                                                                <h5 class="modal-title">INFO!</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p>Apakah Anda Yakin Ingin Menghapus?</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                                                <a href="<?php echo base_url() ?>t_pengadaan_barang/delete/<?php echo $dt->id ?>" class="btn btn-primary">Ya, Hapus</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                <?php $i++;
-                                } ?>
-                            </tbody>
-                        </table>
+                                            </td>
+                                        </tr>
+                                    <?php $i++;
+                                    } ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -181,7 +190,8 @@ if (isset($_GET['periode'])) {
         });
 
         var table = $('#dt-basic-example').DataTable({
-            //responsive: true,
+            // responsive: true,
+            scrollX: true,
             orderCellsTop: true,
             fixedHeader: true,
         });
