@@ -48,10 +48,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td width='200'>Level User <?php echo form_error('id_user_level') ?></td>
+                                    <td width='200'>Level User <?php echo form_error('kode_unit') ?></td>
                                     <td>
-                                        <?php echo select2_dinamis('kode_unit', 'm_unit_kerja', 'kode_unit', 'nama_unit', $kode_unit, 'ASC') ?>
-                                        <!--<input type="text" class="form-control" name="id_user_level" id="id_user_level" placeholder="Id User Level" value="<?php echo $id_user_level; ?>" />-->
+                                        <?php if ($button == 'Update') {
+                                            echo select2_dinamis('kode_unit', 'm_unit_kerja', 'kode_unit', 'nama_unit', $kode_unit, 'ASC');
+                                        } else {
+                                            echo select2_dinamis('kode_unit', 'm_unit_kerja', 'kode_unit', 'nama_unit', 'ASC');
+                                        } ?>
                                     </td>
                                 </tr>
                                 <tr>

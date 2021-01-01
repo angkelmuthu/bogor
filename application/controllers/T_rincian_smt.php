@@ -42,7 +42,7 @@ class T_rincian_smt extends CI_Controller
             'total_rows' => $config['total_rows'],
             'start' => $start,
         );
-        $this->template->load('template','t_rincian_smt/t_rincian_smt_list', $data);
+        $this->template->load('template', 't_rincian_smt/t_rincian_smt_list', $data);
     }
 
     public function read($id)
@@ -50,21 +50,21 @@ class T_rincian_smt extends CI_Controller
         $row = $this->T_rincian_smt_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id' => $row->id,
-		'tahun' => $row->tahun,
-		'periode' => $row->periode,
-		'kode_kabupaten' => $row->kode_kabupaten,
-		'kode_unit' => $row->kode_unit,
-		'kode_jenis_barang' => $row->kode_jenis_barang,
-		'jumlah_harga' => $row->jumlah_harga,
-		'no_ba' => $row->no_ba,
-		'created_by' => $row->created_by,
-		'created_date' => $row->created_date,
-		'updated_by' => $row->updated_by,
-		'updated_date' => $row->updated_date,
-		'isdelete' => $row->isdelete,
-	    );
-            $this->template->load('template','t_rincian_smt/t_rincian_smt_read', $data);
+                'id' => $row->id,
+                'tahun' => $row->tahun,
+                'periode' => $row->periode,
+                'kode_kabupaten' => $row->kode_kabupaten,
+                'kode_unit' => $row->kode_unit,
+                'kode_jenis_barang' => $row->kode_jenis_barang,
+                'jumlah_harga' => $row->jumlah_harga,
+                'no_ba' => $row->no_ba,
+                'created_by' => $row->created_by,
+                'created_date' => $row->created_date,
+                'updated_by' => $row->updated_by,
+                'updated_date' => $row->updated_date,
+                'isdelete' => $row->isdelete,
+            );
+            $this->template->load('template', 't_rincian_smt/t_rincian_smt_read', $data);
         } else {
             $this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -79,21 +79,21 @@ class T_rincian_smt extends CI_Controller
         $data = array(
             'button' => 'Create',
             'action' => site_url('t_rincian_smt/create_action'),
-	    'id' => set_value('id'),
-	    'tahun' => set_value('tahun'),
-	    'periode' => set_value('periode'),
-	    'kode_kabupaten' => set_value('kode_kabupaten'),
-	    'kode_unit' => set_value('kode_unit'),
-	    'kode_jenis_barang' => set_value('kode_jenis_barang'),
-	    'jumlah_harga' => set_value('jumlah_harga'),
-	    'no_ba' => set_value('no_ba'),
-	    'created_by' => set_value('created_by'),
-	    'created_date' => set_value('created_date'),
-	    'updated_by' => set_value('updated_by'),
-	    'updated_date' => set_value('updated_date'),
-	    'isdelete' => set_value('isdelete'),
-	);
-        $this->template->load('template','t_rincian_smt/t_rincian_smt_form', $data);
+            'id' => set_value('id'),
+            'tahun' => set_value('tahun'),
+            'periode' => set_value('periode'),
+            'kode_kabupaten' => set_value('kode_kabupaten'),
+            'kode_unit' => set_value('kode_unit'),
+            'kode_jenis_barang' => set_value('kode_jenis_barang'),
+            'jumlah_harga' => set_value('jumlah_harga'),
+            'no_ba' => set_value('no_ba'),
+            'created_by' => set_value('created_by'),
+            'created_date' => set_value('created_date'),
+            'updated_by' => set_value('updated_by'),
+            'updated_date' => set_value('updated_date'),
+            'isdelete' => set_value('isdelete'),
+        );
+        $this->template->load('template', 't_rincian_smt/t_rincian_smt_form', $data);
     }
 
     public function create_action()
@@ -104,19 +104,19 @@ class T_rincian_smt extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'tahun' => $this->input->post('tahun',TRUE),
-		'periode' => $this->input->post('periode',TRUE),
-		'kode_kabupaten' => $this->input->post('kode_kabupaten',TRUE),
-		'kode_unit' => $this->input->post('kode_unit',TRUE),
-		'kode_jenis_barang' => $this->input->post('kode_jenis_barang',TRUE),
-		'jumlah_harga' => $this->input->post('jumlah_harga',TRUE),
-		'no_ba' => $this->input->post('no_ba',TRUE),
-		'created_by' => $this->input->post('created_by',TRUE),
-		'created_date' => $this->input->post('created_date',TRUE),
-		'updated_by' => $this->input->post('updated_by',TRUE),
-		'updated_date' => $this->input->post('updated_date',TRUE),
-		'isdelete' => $this->input->post('isdelete',TRUE),
-	    );
+                'tahun' => $this->input->post('tahun', TRUE),
+                'periode' => $this->input->post('periode', TRUE),
+                'kode_kabupaten' => $this->session->userdata('kode_kabupaten'),
+                'kode_unit' => $this->session->userdata('kode_unit'),
+                'kode_jenis_barang' => $this->input->post('kode_jenis_barang', TRUE),
+                'jumlah_harga' => $this->input->post('jumlah_harga', TRUE),
+                'no_ba' => $this->input->post('no_ba', TRUE),
+                'created_by' => $this->session->userdata('full_name'),
+                'created_date' => date('Y-m-d H:i:s'),
+                //'updated_by' => date('Y-m-d H:i:s'),
+                //'updated_date' => $this->session->userdata('nama'),
+                'isdelete' => 0,
+            );
 
             $this->T_rincian_smt_model->insert($data);
             $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
@@ -135,21 +135,21 @@ class T_rincian_smt extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('t_rincian_smt/update_action'),
-		'id' => set_value('id', $row->id),
-		'tahun' => set_value('tahun', $row->tahun),
-		'periode' => set_value('periode', $row->periode),
-		'kode_kabupaten' => set_value('kode_kabupaten', $row->kode_kabupaten),
-		'kode_unit' => set_value('kode_unit', $row->kode_unit),
-		'kode_jenis_barang' => set_value('kode_jenis_barang', $row->kode_jenis_barang),
-		'jumlah_harga' => set_value('jumlah_harga', $row->jumlah_harga),
-		'no_ba' => set_value('no_ba', $row->no_ba),
-		'created_by' => set_value('created_by', $row->created_by),
-		'created_date' => set_value('created_date', $row->created_date),
-		'updated_by' => set_value('updated_by', $row->updated_by),
-		'updated_date' => set_value('updated_date', $row->updated_date),
-		'isdelete' => set_value('isdelete', $row->isdelete),
-	    );
-            $this->template->load('template','t_rincian_smt/t_rincian_smt_form', $data);
+                'id' => set_value('id', $row->id),
+                'tahun' => set_value('tahun', $row->tahun),
+                'periode' => set_value('periode', $row->periode),
+                'kode_kabupaten' => set_value('kode_kabupaten', $row->kode_kabupaten),
+                'kode_unit' => set_value('kode_unit', $row->kode_unit),
+                'kode_jenis_barang' => set_value('kode_jenis_barang', $row->kode_jenis_barang),
+                'jumlah_harga' => set_value('jumlah_harga', $row->jumlah_harga),
+                'no_ba' => set_value('no_ba', $row->no_ba),
+                'created_by' => set_value('created_by', $row->created_by),
+                'created_date' => set_value('created_date', $row->created_date),
+                'updated_by' => set_value('updated_by', $row->updated_by),
+                'updated_date' => set_value('updated_date', $row->updated_date),
+                'isdelete' => set_value('isdelete', $row->isdelete),
+            );
+            $this->template->load('template', 't_rincian_smt/t_rincian_smt_form', $data);
         } else {
             $this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -167,19 +167,19 @@ class T_rincian_smt extends CI_Controller
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'tahun' => $this->input->post('tahun',TRUE),
-		'periode' => $this->input->post('periode',TRUE),
-		'kode_kabupaten' => $this->input->post('kode_kabupaten',TRUE),
-		'kode_unit' => $this->input->post('kode_unit',TRUE),
-		'kode_jenis_barang' => $this->input->post('kode_jenis_barang',TRUE),
-		'jumlah_harga' => $this->input->post('jumlah_harga',TRUE),
-		'no_ba' => $this->input->post('no_ba',TRUE),
-		'created_by' => $this->input->post('created_by',TRUE),
-		'created_date' => $this->input->post('created_date',TRUE),
-		'updated_by' => $this->input->post('updated_by',TRUE),
-		'updated_date' => $this->input->post('updated_date',TRUE),
-		'isdelete' => $this->input->post('isdelete',TRUE),
-	    );
+                'tahun' => $this->input->post('tahun', TRUE),
+                'periode' => $this->input->post('periode', TRUE),
+                'kode_kabupaten' => $this->session->userdata('kode_kabupaten'),
+                'kode_unit' => $this->session->userdata('kode_unit'),
+                'kode_jenis_barang' => $this->input->post('kode_jenis_barang', TRUE),
+                'jumlah_harga' => $this->input->post('jumlah_harga', TRUE),
+                'no_ba' => $this->input->post('no_ba', TRUE),
+                //'created_by' => $this->input->post('created_by', TRUE),
+                //'created_date' => $this->input->post('created_date', TRUE),
+                'updated_by' => $this->session->userdata('full_name'),
+                'updated_date' => date('Y-m-d H:i:s'),
+                //'isdelete' => $this->input->post('isdelete', TRUE),
+            );
 
             $this->T_rincian_smt_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
@@ -212,23 +212,22 @@ class T_rincian_smt extends CI_Controller
 
     public function _rules()
     {
-	$this->form_validation->set_rules('tahun', 'tahun', 'trim|required');
-	$this->form_validation->set_rules('periode', 'periode', 'trim|required');
-	$this->form_validation->set_rules('kode_kabupaten', 'kode kabupaten', 'trim|required');
-	$this->form_validation->set_rules('kode_unit', 'kode unit', 'trim|required');
-	$this->form_validation->set_rules('kode_jenis_barang', 'kode jenis barang', 'trim|required');
-	$this->form_validation->set_rules('jumlah_harga', 'jumlah harga', 'trim|required|numeric');
-	$this->form_validation->set_rules('no_ba', 'no ba', 'trim|required');
-	$this->form_validation->set_rules('created_by', 'created by', 'trim|required');
-	$this->form_validation->set_rules('created_date', 'created date', 'trim|required');
-	$this->form_validation->set_rules('updated_by', 'updated by', 'trim|required');
-	$this->form_validation->set_rules('updated_date', 'updated date', 'trim|required');
-	$this->form_validation->set_rules('isdelete', 'isdelete', 'trim|required');
+        $this->form_validation->set_rules('tahun', 'tahun', 'trim|required');
+        $this->form_validation->set_rules('periode', 'periode', 'trim|required');
+        //$this->form_validation->set_rules('kode_kabupaten', 'kode kabupaten', 'trim|required');
+        //$this->form_validation->set_rules('kode_unit', 'kode unit', 'trim|required');
+        $this->form_validation->set_rules('kode_jenis_barang', 'kode jenis barang', 'trim|required');
+        $this->form_validation->set_rules('jumlah_harga', 'jumlah harga', 'trim|required|numeric');
+        $this->form_validation->set_rules('no_ba', 'no ba', 'trim|required');
+        // $this->form_validation->set_rules('created_by', 'created by', 'trim|required');
+        // $this->form_validation->set_rules('created_date', 'created date', 'trim|required');
+        // $this->form_validation->set_rules('updated_by', 'updated by', 'trim|required');
+        // $this->form_validation->set_rules('updated_date', 'updated date', 'trim|required');
+        // $this->form_validation->set_rules('isdelete', 'isdelete', 'trim|required');
 
-	$this->form_validation->set_rules('id', 'id', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id', 'id', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file T_rincian_smt.php */

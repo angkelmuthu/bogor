@@ -15,7 +15,9 @@
                     <div class="panel-content">
                         <div class="row">
                             <div class="col-md-6">
-                                <?php echo anchor(site_url('t_pengadaan_spk/create'), '<i class="fal fa-plus-square" aria-hidden="true"></i> Tambah Data', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?>
+                                <?php if ($this->session->userdata('kode_jenis_unit') != 3) {
+                                    echo anchor(site_url('t_pengadaan_spk/create'), '<i class="fal fa-plus-square" aria-hidden="true"></i> Tambah Data', 'class="btn btn-primary btn-sm waves-effect waves-themed"');
+                                } ?>
                                 <button type="button" class="btn btn-primary btn-sm waves-effect waves-themed" data-toggle="modal" data-target="#default-example-modal"><i class="fal fa-file-excel" aria-hidden="true"></i> Export Excel</button>
                                 <div class="modal fade" id="default-example-modal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -30,6 +32,14 @@
                                             </div>
                                             <form action="<?php echo site_url('t_pengadaan_spk/export_excel') ?>" method="GET">
                                                 <div class="modal-body text-left">
+                                                    <?php if ($this->session->userdata('kode_jenis_unit') == 3) { ?>
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="simpleinput">Jenis Belanja</label>
+                                                            <?php echo select2_dinamis('kode_unit', 'm_unit_kerja', 'kode_unit', 'nama_unit') ?>
+                                                        </div>
+                                                    <?php } else { ?>
+                                                        <input type="hidden" name="kode_unit" value="">
+                                                    <?php } ?>
                                                     <div class="form-group">
                                                         <label class="form-label" for="simpleinput">Jenis Belanja</label>
                                                         <?php echo cmb_dinamis('kode_jenis_belanja', 'v_jenis_belanja', 'kode_jenis_belanja', 'nama_jenis_belanja') ?>
@@ -92,6 +102,7 @@
                                         <th rowspan="2">No</th>
                                         <th rowspan="2">Tahun</th>
                                         <th rowspan="2">Periode</th>
+                                        <th rowspan="2">Unit Kerja</th>
                                         <th colspan="2">SPK / Kontrak</th>
                                         <th colspan="2">Berita Acara</th>
                                         <th rowspan="2">Kode Unit Peruntukan</th>
@@ -113,6 +124,7 @@
                                             <td width="10px"><?php echo ++$start ?></td>
                                             <td><?php echo $t_pengadaan_spk->tahun ?></td>
                                             <td><?php echo $t_pengadaan_spk->periode ?></td>
+                                            <td><?php echo $t_pengadaan_spk->nama_unit ?></td>
                                             <td><?php echo $t_pengadaan_spk->tanggal_kontrak ?></td>
                                             <td><?php echo $t_pengadaan_spk->no_kontrak ?></td>
                                             <td><?php echo $t_pengadaan_spk->tanggal_ba ?></td>
@@ -123,11 +135,12 @@
                                             <td style="text-align:center" width="220px">
                                                 <?php
                                                 echo anchor(site_url('t_pengadaan_spk/read/' . $t_pengadaan_spk->id), '<i class="fal fa-eye" aria-hidden="true"></i> Data Barang', 'class="btn btn-info btn-xs waves-effect waves-themed"');
-                                                echo '  ';
-                                                echo anchor(site_url('t_pengadaan_spk/update/' . $t_pengadaan_spk->id), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-xs waves-effect waves-themed"');
-                                                echo '  ';
-                                                echo
-                                                    '<button type="button" class="btn btn-danger btn-xs waves-effect waves-themed" data-toggle="modal" data-target="#default-example-modal-sm' . $t_pengadaan_spk->id . '"><i class="fal fa-trash" aria-hidden="true"></i></button>
+                                                if ($this->session->userdata('kode_jenis_unit') != 3) {
+                                                    echo '  ';
+                                                    echo anchor(site_url('t_pengadaan_spk/update/' . $t_pengadaan_spk->id), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-xs waves-effect waves-themed"');
+                                                    echo '  ';
+                                                    echo
+                                                        '<button type="button" class="btn btn-danger btn-xs waves-effect waves-themed" data-toggle="modal" data-target="#default-example-modal-sm' . $t_pengadaan_spk->id . '"><i class="fal fa-trash" aria-hidden="true"></i></button>
     <div class="modal fade" id="default-example-modal-sm' . $t_pengadaan_spk->id . '" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -147,7 +160,7 @@
         </div>
     </div>
 </div>';
-                                                ?>
+                                                } ?>
                                             </td>
                                         </tr>
                                     <?php
@@ -157,6 +170,7 @@
                             </table>
 
                             <?php echo $pagination ?>
+
                         </div>
                     </div>
                 </div>

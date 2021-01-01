@@ -70,19 +70,7 @@ function isdelete($name, $table, $pk, $field)
     $radio .= '</div>';
     return $radio;
 }
-function select2_dinamis($name, $table, $pk, $field)
-{
-    $ci = get_instance();
-    //$select2 = '<select name="' . $name . '" class="select2 form-control w-100" id="single-default" >';
-    $select2 = '<select name="' . $name . '" class="select2 form-control w-100">';
-    $data = $ci->db->get($table)->result();
-    foreach ($data as $row) {
-        $select2 .= ' <option value="' . $row->$pk . '">' . $row->$field . '</option>';
-    }
-    $select2 .= '</select>';
-    return $select2;
-}
-function select2_dinamis_satuan($name, $table, $pk, $field, $selected)
+function select2_dinamis($name, $table, $pk, $field, $selected = null)
 {
     $ci = get_instance();
     //$select2 = '<select name="' . $name . '" class="select2 form-control w-100" id="single-default" >';
@@ -90,24 +78,11 @@ function select2_dinamis_satuan($name, $table, $pk, $field, $selected)
     $data = $ci->db->get($table)->result();
     foreach ($data as $row) {
         if ($row->$pk == $selected) {
-            $select2 .= ' <option value="' . $row->$pk . '" selected>' . $row->$field . '</option>';
+            $cek = 'selected';
         } else {
-            $select2 .= ' <option value="' . $row->$pk . '">' . $row->$field . '</option>';
+            $cek = '';
         }
-    }
-    $select2 .= '</select>';
-    return $select2;
-}
-function select2_hambatan($name, $table, $pk, $field)
-{
-    $ci = get_instance();
-    //$select2 = '<select name="' . $name . '" class="select2 form-control w-100" id="single-default" >';
-    $select2 = '<select name="' . $name . '" class="select2 form-control w-100">';
-    $select2 .= ' <option value="">Pilih Hambatan</option>';
-    $data = $ci->db->get($table)->result();
-    foreach ($data as $row) {
-
-        $select2 .= ' <option value="' . $row->$pk . '">' . $row->$field . '</option>';
+        $select2 .= ' <option value="' . $row->$pk . '" ' . $cek . '>' . $row->$field . '</option>';
     }
     $select2 .= '</select>';
     return $select2;

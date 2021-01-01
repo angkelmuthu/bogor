@@ -18,6 +18,12 @@ class T_rincian_smt_model extends CI_Model
     // get all
     function get_all()
     {
+        $jenis_unit = $this->session->userdata('kode_jenis_unit');
+        $unit = $this->session->userdata('kode_unit');
+        if ($jenis_unit != 3) {
+            $this->db->where('kode_unit', $unit);
+        }
+        $this->db->where('isdelete', '0');
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }
@@ -28,43 +34,61 @@ class T_rincian_smt_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
-    
+
     // get total rows
-    function total_rows($q = NULL) {
+    function total_rows($q = NULL)
+    {
+        $jenis_unit = $this->session->userdata('kode_jenis_unit');
+        $unit = $this->session->userdata('kode_unit');
+        if ($jenis_unit != 3) {
+            $this->db->where('kode_unit', $unit);
+        }
+        $this->db->where('isdelete', '0');
+        $this->db->group_start();
         $this->db->like('id', $q);
-	$this->db->or_like('tahun', $q);
-	$this->db->or_like('periode', $q);
-	$this->db->or_like('kode_kabupaten', $q);
-	$this->db->or_like('kode_unit', $q);
-	$this->db->or_like('kode_jenis_barang', $q);
-	$this->db->or_like('jumlah_harga', $q);
-	$this->db->or_like('no_ba', $q);
-	$this->db->or_like('created_by', $q);
-	$this->db->or_like('created_date', $q);
-	$this->db->or_like('updated_by', $q);
-	$this->db->or_like('updated_date', $q);
-	$this->db->or_like('isdelete', $q);
-	$this->db->from($this->table);
+        $this->db->or_like('tahun', $q);
+        $this->db->or_like('periode', $q);
+        $this->db->or_like('kode_kabupaten', $q);
+        $this->db->or_like('kode_unit', $q);
+        $this->db->or_like('kode_jenis_barang', $q);
+        $this->db->or_like('jumlah_harga', $q);
+        $this->db->or_like('no_ba', $q);
+        $this->db->or_like('created_by', $q);
+        $this->db->or_like('created_date', $q);
+        $this->db->or_like('updated_by', $q);
+        $this->db->or_like('updated_date', $q);
+        $this->db->or_like('isdelete', $q);
+        $this->db->group_end();
+        $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
     // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
+    function get_limit_data($limit, $start = 0, $q = NULL)
+    {
+        $jenis_unit = $this->session->userdata('kode_jenis_unit');
+        $unit = $this->session->userdata('kode_unit');
+        if ($jenis_unit != 3) {
+            $this->db->where('kode_unit', $unit);
+        }
+        $this->db->where('isdelete', '0');
         $this->db->order_by($this->id, $this->order);
+        $this->db->group_start();
         $this->db->like('id', $q);
-	$this->db->or_like('tahun', $q);
-	$this->db->or_like('periode', $q);
-	$this->db->or_like('kode_kabupaten', $q);
-	$this->db->or_like('kode_unit', $q);
-	$this->db->or_like('kode_jenis_barang', $q);
-	$this->db->or_like('jumlah_harga', $q);
-	$this->db->or_like('no_ba', $q);
-	$this->db->or_like('created_by', $q);
-	$this->db->or_like('created_date', $q);
-	$this->db->or_like('updated_by', $q);
-	$this->db->or_like('updated_date', $q);
-	$this->db->or_like('isdelete', $q);
-	$this->db->limit($limit, $start);
+        $this->db->or_like('tahun', $q);
+        $this->db->or_like('periode', $q);
+        $this->db->or_like('kode_kabupaten', $q);
+        $this->db->or_like('kode_unit', $q);
+        $this->db->or_like('kode_jenis_barang', $q);
+        $this->db->or_like('jumlah_harga', $q);
+        $this->db->or_like('no_ba', $q);
+        $this->db->or_like('created_by', $q);
+        $this->db->or_like('created_date', $q);
+        $this->db->or_like('updated_by', $q);
+        $this->db->or_like('updated_date', $q);
+        $this->db->or_like('isdelete', $q);
+        $this->db->group_end();
+        $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
 
@@ -84,10 +108,14 @@ class T_rincian_smt_model extends CI_Model
     // delete data
     function delete($id)
     {
+        $data = array(
+            'updated_by' => $this->session->userdata('full_name'),
+            'updated_date' => date('Y-m-d H:i:s'),
+            'isdelete' => 1,
+        );
         $this->db->where($this->id, $id);
-        $this->db->delete($this->table);
+        $this->db->update($this->table, $data);
     }
-
 }
 
 /* End of file T_rincian_smt_model.php */

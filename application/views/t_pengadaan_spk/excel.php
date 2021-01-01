@@ -1,16 +1,22 @@
 <?php
 
-header("Content-type: application/vnd-ms-excel");
+// header("Content-type: application/vnd-ms-excel");
 
-header("Content-Disposition: attachment; filename=Laporan_Pengadaan_barang.xls");
+// header("Content-Disposition: attachment; filename=Laporan_Pengadaan_barang.xls");
 
-header("Pragma: no-cache");
+// header("Pragma: no-cache");
 
-header("Expires: 0");
+// header("Expires: 0");
 
 ///////////jenis belanja///////////////////////////
+if (!empty($_GET['kode_unit'])) {
+    $where_unit = $this->db->where('kode_unit', $_GET['kode_unit']);
+} else {
+    $where_unit = $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+}
 $this->db->select('nama_jenis_belanja');
 $this->db->where('kode_jenis_belanja', $_GET['kode_jenis_belanja']);
+$where_unit;
 $this->db->group_by('kode_jenis_belanja');
 $result = $this->db->get('v_pengadaan_spk_detail')->row();
 $jenis_belanja = $result->nama_jenis_belanja;
@@ -122,7 +128,8 @@ $jabatan = $result->jabatan;
 
         <?php
         $this->db->select('kode_jenis_belanja,nama_jenis_belanja,sum(total) as ttl');
-        $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+        //$this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+        $where_unit;
         $this->db->where('tahun', $_GET['tahun']);
         $this->db->where('periode', $_GET['periode']);
         $this->db->where('isdelete', '0');
@@ -140,7 +147,8 @@ $jabatan = $result->jabatan;
             </tr>
             <?php
             $i = 1;
-            $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+            //$this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+            $where_unit;
             $this->db->where('tahun', $_GET['tahun']);
             $this->db->where('periode', $_GET['periode']);
             $this->db->where('isdelete', '0');
@@ -166,7 +174,8 @@ $jabatan = $result->jabatan;
                 </tr>
                 <?php $i++;
 
-                $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+                //$this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+                $where_unit;
                 $this->db->where('tahun', $_GET['tahun']);
                 $this->db->where('periode', $_GET['periode']);
                 $this->db->where('isdelete', '0');
@@ -192,7 +201,8 @@ $jabatan = $result->jabatan;
                         <td></td>
                     </tr>
                     <?php
-                    $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+                    //$this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+                    $where_unit;
                     $this->db->where('tahun', $_GET['tahun']);
                     $this->db->where('periode', $_GET['periode']);
                     $this->db->where('isdelete', '0');

@@ -18,6 +18,7 @@ class T_pengadaan_spk_model extends CI_Model
     // get all
     function get_all()
     {
+
         $this->db->where('isdelete', '0');
         $this->db->order_by($this->id, $this->order);
         return $this->db->get('v_pengadaan_spk')->result();
@@ -34,7 +35,14 @@ class T_pengadaan_spk_model extends CI_Model
     // get total rows
     function total_rows($q = NULL)
     {
-        $this->db->like('id', $q);
+        $jenis_unit = $this->session->userdata('kode_jenis_unit');
+        $unit = $this->session->userdata('kode_unit');
+        if ($jenis_unit != 3) {
+            $this->db->where('kode_unit', $unit);
+        }
+        $this->db->where('isdelete', '0');
+        $this->db->group_start();
+        $this->db->or_like('id', $q);
         $this->db->or_like('tahun', $q);
         $this->db->or_like('periode', $q);
         $this->db->or_like('tanggal_kontrak', $q);
@@ -43,6 +51,7 @@ class T_pengadaan_spk_model extends CI_Model
         $this->db->or_like('no_ba', $q);
         $this->db->or_like('nama_unit_peruntukan', $q);
         $this->db->or_like('nama_perusahaan', $q);
+        $this->db->group_end();
         $this->db->from('v_pengadaan_spk');
         return $this->db->count_all_results();
     }
@@ -50,7 +59,14 @@ class T_pengadaan_spk_model extends CI_Model
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
+        $jenis_unit = $this->session->userdata('kode_jenis_unit');
+        $unit = $this->session->userdata('kode_unit');
+        if ($jenis_unit != 3) {
+            $this->db->where('kode_unit', $unit);
+        }
+        $this->db->where('isdelete', '0');
         $this->db->order_by($this->id, $this->order);
+        $this->db->group_start();
         $this->db->like('id', $q);
         $this->db->or_like('tahun', $q);
         $this->db->or_like('periode', $q);
@@ -61,6 +77,7 @@ class T_pengadaan_spk_model extends CI_Model
         $this->db->or_like('nama_unit_peruntukan', $q);
         $this->db->or_like('nama_perusahaan', $q);
         $this->db->or_like('keterangan', $q);
+        $this->db->group_end();
         $this->db->limit($limit, $start);
         return $this->db->get('v_pengadaan_spk')->result();
     }
@@ -95,7 +112,7 @@ class T_pengadaan_spk_model extends CI_Model
     function get_all_detail($id)
     {
         $this->db->where('isdelete', '0');
-        $this->db->order_by('id_spk', $id);
+        $this->db->where('id_spk', $id);
         return $this->db->get('t_pengadaan_spk_detail')->result();
     }
     // insert data
