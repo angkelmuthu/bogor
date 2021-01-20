@@ -1,3 +1,12 @@
+<?php
+if (isset($_GET['tahun']) && isset($_GET['periode'])) {
+    $tahun = $_GET['tahun'];
+    $periode = $_GET['periode'];
+} else {
+    $tahun = date('Y');
+    $periode = 1;
+}
+?>
 <main id="js-page-content" role="main" class="page-content">
     <?php echo $this->session->userdata('message') <> '' ? $this->session->userdata('message') : ''; ?>
     <div class="row">
@@ -15,7 +24,51 @@
                     <div class="panel-content">
                         <div class="row">
                             <div class="col-md-6">
-                                <?php echo anchor(site_url('t_stock_opname/create'), '<i class="fal fa-plus-square" aria-hidden="true"></i> Tambah Data', 'class="btn btn-primary btn-sm waves-effect waves-themed"'); ?></div>
+                                <?php
+                                if ($this->session->userdata('kode_jenis_unit') != 3) {
+                                    echo anchor(site_url('t_stock_opname/create'), '<i class="fal fa-plus-square" aria-hidden="true"></i> Tambah Data', 'class="btn btn-primary btn-sm waves-effect waves-themed"');
+                                } ?>
+                                <a href="<?php echo site_url('t_stock_opname/rincian_xls/' . $tahun . '/' . $periode) ?>" class="btn btn-sm btn-primary"><i class="fal fa-file-excel"></i> Export Rincian</a>
+                            </div>
+                            <div class="col-md-6">
+                                <form action="" method="GET">
+                                    <table class="table table-striped">
+                                        <thead class="bg-primary-500">
+                                            <tr>
+                                                <th colspan="5">Filter</th colspan="5">
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <td><label class="form-label mt-2">Pilih Tahun :</label></td>
+                                            <td>
+                                                <select class="form-control" name="tahun" required>
+                                                    <option></option>
+                                                    <?php
+                                                    $this->db->group_by('tahun');
+                                                    $result = $this->db->get('t_stock_opname');
+                                                    foreach ($result as $dt) {
+                                                        echo '<option value="' . $dt->tahun . '">' . $dt->tahun . '</option>';
+                                                    } ?>
+                                                </select>
+                                            </td>
+                                            <td><label class="form-label mt-2">Pilih Periode :</label></td>
+                                            <td>
+                                                <div class="frame-wrap mt-1">
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" class="custom-control-input" id="periode1" name="periode" value="1" checked="">
+                                                        <label class="custom-control-label" for="periode1">1</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" class="custom-control-input" id="periode2" name="periode" value="2">
+                                                        <label class="custom-control-label" for="periode2">2</label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><button type="submit" class="btn btn-sm btn-primary"><i class="fal fa-search"></i> Search</button></td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
                             <div class="col-md-6">
                                 <form action="<?php echo site_url('t_stock_opname/index'); ?>" method="get">
                                     <div class="input-group">
@@ -47,12 +100,12 @@
                                 <thead class="thead-themed">
                                     <tr>
                                         <th>No</th>
-                                        <th>Kode Jenis Barang</th>
+                                        <th>Nama Jenis Barang</th>
                                         <th>Tahun</th>
                                         <th>Tanggal So</th>
                                         <th>No So</th>
-                                        <!-- <th>Kode Kabupaten</th>
-                                        <th>Kode Unit</th> -->
+                                        <!-- <th>Kode Kabupaten</th> -->
+                                        <!-- <th>Nama Unit</th> -->
                                         <th>Barang</th>
                                         <th>Satuan</th>
                                         <th>Saldo Awal</th>
@@ -80,12 +133,12 @@
                                         ?>
                                         <tr>
                                             <td width="10px"><?php echo ++$start ?></td>
-                                            <td><?php echo $t_stock_opname->kode_jenis_barang ?></td>
+                                            <td><?php echo $t_stock_opname->nama_jenis_barang ?></td>
                                             <td><?php echo $t_stock_opname->tahun ?></td>
                                             <td><?php echo $t_stock_opname->tanggal_so ?></td>
                                             <td><?php echo $t_stock_opname->no_so ?></td>
-                                            <!-- <td><?php echo $t_stock_opname->kode_kabupaten ?></td>
-                                            <td><?php echo $t_stock_opname->kode_unit ?></td> -->
+                                            <!-- <td><?php echo $t_stock_opname->kode_kabupaten ?></td> -->
+                                            <!-- <td><?php echo $t_stock_opname->nama_unit ?></td> -->
                                             <td><?php echo $t_stock_opname->barang ?></td>
                                             <td><?php echo $t_stock_opname->satuan ?></td>
                                             <td><?php echo $t_stock_opname->saldo_awal ?></td>

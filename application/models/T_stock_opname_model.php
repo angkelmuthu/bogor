@@ -19,26 +19,26 @@ class T_stock_opname_model extends CI_Model
 	function get_all()
 	{
 		$this->db->order_by($this->id, $this->order);
-		return $this->db->get($this->table)->result();
+		return $this->db->get('v_stock_opname')->result();
 	}
 
 	// get data by id
 	function get_by_id($id)
 	{
 		$this->db->where($this->id, $id);
-		return $this->db->get($this->table)->row();
+		return $this->db->get('v_stock_opname')->row();
 	}
 
 	// get total rows
 	function total_rows($q = NULL)
 	{
 		$this->db->like('id', $q);
-		$this->db->or_like('kode_jenis_barang', $q);
+		$this->db->or_like('nama_jenis_barang', $q);
 		$this->db->or_like('tahun', $q);
 		$this->db->or_like('tanggal_so', $q);
 		$this->db->or_like('no_so', $q);
-		$this->db->or_like('kode_kabupaten', $q);
-		$this->db->or_like('kode_unit', $q);
+		//$this->db->or_like('kode_kabupaten', $q);
+		$this->db->or_like('nama_unit', $q);
 		$this->db->or_like('barang', $q);
 		$this->db->or_like('satuan', $q);
 		$this->db->or_like('saldo_awal', $q);
@@ -53,12 +53,12 @@ class T_stock_opname_model extends CI_Model
 		$this->db->or_like('nilai_persediaan', $q);
 		$this->db->or_like('selisih_unit', $q);
 		$this->db->or_like('selisih_rupiah', $q);
-		$this->db->or_like('created_by', $q);
-		$this->db->or_like('created_date', $q);
-		$this->db->or_like('updated_by', $q);
-		$this->db->or_like('updated_date', $q);
-		$this->db->or_like('isdelete', $q);
-		$this->db->from($this->table);
+		// $this->db->or_like('created_by', $q);
+		// $this->db->or_like('created_date', $q);
+		// $this->db->or_like('updated_by', $q);
+		// $this->db->or_like('updated_date', $q);
+		// $this->db->or_like('isdelete', $q);
+		$this->db->from('v_stock_opname');
 		return $this->db->count_all_results();
 	}
 
@@ -67,12 +67,12 @@ class T_stock_opname_model extends CI_Model
 	{
 		$this->db->order_by($this->id, $this->order);
 		$this->db->like('id', $q);
-		$this->db->or_like('kode_jenis_barang', $q);
+		$this->db->or_like('nama_jenis_barang', $q);
 		$this->db->or_like('tahun', $q);
 		$this->db->or_like('tanggal_so', $q);
 		$this->db->or_like('no_so', $q);
-		$this->db->or_like('kode_kabupaten', $q);
-		$this->db->or_like('kode_unit', $q);
+		//$this->db->or_like('kode_kabupaten', $q);
+		$this->db->or_like('nama_unit', $q);
 		$this->db->or_like('barang', $q);
 		$this->db->or_like('satuan', $q);
 		$this->db->or_like('saldo_awal', $q);
@@ -87,13 +87,13 @@ class T_stock_opname_model extends CI_Model
 		$this->db->or_like('nilai_persediaan', $q);
 		$this->db->or_like('selisih_unit', $q);
 		$this->db->or_like('selisih_rupiah', $q);
-		$this->db->or_like('created_by', $q);
-		$this->db->or_like('created_date', $q);
-		$this->db->or_like('updated_by', $q);
-		$this->db->or_like('updated_date', $q);
-		$this->db->or_like('isdelete', $q);
+		// $this->db->or_like('created_by', $q);
+		// $this->db->or_like('created_date', $q);
+		// $this->db->or_like('updated_by', $q);
+		// $this->db->or_like('updated_date', $q);
+		// $this->db->or_like('isdelete', $q);
 		$this->db->limit($limit, $start);
-		return $this->db->get($this->table)->result();
+		return $this->db->get('v_stock_opname')->result();
 	}
 
 	// insert data
