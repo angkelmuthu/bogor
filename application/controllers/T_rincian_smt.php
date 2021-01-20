@@ -15,35 +15,66 @@ class T_rincian_smt extends CI_Controller
 
     public function index()
     {
-        $q = urldecode($this->input->get('q', TRUE));
-        $start = intval($this->uri->segment(3));
-
-        if ($q <> '') {
-            $config['base_url'] = base_url() . '.php/c_url/index.html?q=' . urlencode($q);
-            $config['first_url'] = base_url() . 'index.php/t_rincian_smt/index.html?q=' . urlencode($q);
+        if (isset($_GET['tahun']) && isset($_GET['periode'])) {
+            $tahun = $_GET['tahun'];
+            $periode = $_GET['periode'];
         } else {
-            $config['base_url'] = base_url() . 'index.php/t_rincian_smt/index/';
-            $config['first_url'] = base_url() . 'index.php/t_rincian_smt/index/';
+            $tahun = date('Y');
+            $periode = 1;
         }
-
-        $config['per_page'] = 10;
-        $config['page_query_string'] = FALSE;
-        $config['total_rows'] = $this->T_rincian_smt_model->total_rows($q);
-        $t_rincian_smt = $this->T_rincian_smt_model->get_limit_data($config['per_page'], $start, $q);
-        $config['full_tag_open'] = '<ul class="pagination justify-content-center">';
-        $config['full_tag_close'] = '</ul>';
-        $this->load->library('pagination');
-        $this->pagination->initialize($config);
-
         $data = array(
-            't_rincian_smt_data' => $t_rincian_smt,
-            'q' => $q,
-            'pagination' => $this->pagination->create_links(),
-            'total_rows' => $config['total_rows'],
-            'start' => $start,
+            't_rincian_smt_data' => $this->T_rincian_smt_model->get_rincian($tahun, $periode),
+            't_rincian_tahun' => $this->T_rincian_smt_model->get_rincian_tahun(),
         );
         $this->template->load('template', 't_rincian_smt/t_rincian_smt_list', $data);
     }
+
+    public function rincian_xls($tahun, $periode)
+    {
+        $data = array(
+            't_rincian_smt_data' => $this->T_rincian_smt_model->get_rincian($tahun, $periode),
+        );
+        $this->load->view('t_rincian_smt/rincian_xls', $data);
+    }
+    public function rekap_xls($tahun, $periode)
+    {
+        $data = array(
+            't_rincian_smt_data' => $this->T_rincian_smt_model->get_rekap($tahun, $periode),
+        );
+        $this->load->view('t_rincian_smt/rekap_xls', $data);
+    }
+
+    // public function index()
+    // {
+    //     $q = urldecode($this->input->get('q', TRUE));
+    //     $start = intval($this->uri->segment(3));
+
+    //     if ($q <> '') {
+    //         $config['base_url'] = base_url() . '.php/c_url/index.html?q=' . urlencode($q);
+    //         $config['first_url'] = base_url() . 'index.php/t_rincian_smt/index.html?q=' . urlencode($q);
+    //     } else {
+    //         $config['base_url'] = base_url() . 'index.php/t_rincian_smt/index/';
+    //         $config['first_url'] = base_url() . 'index.php/t_rincian_smt/index/';
+    //     }
+
+    //     $config['per_page'] = 10;
+    //     $config['page_query_string'] = FALSE;
+    //     $config['total_rows'] = $this->T_rincian_smt_model->total_rows($q);
+    //     $t_rincian_smt = $this->T_rincian_smt_model->get_limit_data($config['per_page'], $start, $q);
+    //     $config['full_tag_open'] = '<ul class="pagination justify-content-center">';
+    //     $config['full_tag_close'] = '</ul>';
+    //     $this->load->library('pagination');
+    //     $this->pagination->initialize($config);
+
+    //     $data = array(
+    //         't_rincian_smt_data' => $t_rincian_smt,
+    //         'q' => $q,
+    //         'pagination' => $this->pagination->create_links(),
+    //         'total_rows' => $config['total_rows'],
+    //         'start' => $start,
+    //     );
+    //     $this->template->load('template', 't_rincian_smt/t_rincian_smt_list', $data);
+    // }
 
     public function read($id)
     {

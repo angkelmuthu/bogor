@@ -16,6 +16,39 @@ class T_rincian_smt_model extends CI_Model
     }
 
     // get all
+    function get_rincian($tahun, $periode)
+    {
+        $jenis_unit = $this->session->userdata('kode_jenis_unit');
+        $unit = $this->session->userdata('kode_unit');
+        if ($jenis_unit != 3) {
+            $this->db->select('a.*,b.nama_jenis_barang');
+            $this->db->from('t_rincian_smt a');
+            $this->db->join('m_jenis_barang b', 'a.kode_jenis_barang = b.kode_jenis_barang');
+            $this->db->where('a.kode_unit', $unit);
+            $this->db->where('a.tahun', $tahun);
+            $this->db->where('a.periode', $periode);
+            $result = $this->db->get();
+        } else {
+            $this->db->where('tahun', $tahun);
+            $this->db->where('periode', $periode);
+            $result = $this->db->get('v_rincian_smt');
+        }
+        return $result->result();
+    }
+    function get_rekap($tahun, $periode)
+    {
+        $this->db->where('tahun', $tahun);
+        $this->db->where('periode', $periode);
+        $result = $this->db->get('v_rincian_smt_rekap');
+        return $result->result();
+    }
+    function get_rincian_tahun()
+    {
+        $this->db->group_by('tahun');
+        $this->db->order_by('tahun', 'DESC');
+        return $this->db->get($this->table)->result();
+    }
+
     function get_all()
     {
         $jenis_unit = $this->session->userdata('kode_jenis_unit');
