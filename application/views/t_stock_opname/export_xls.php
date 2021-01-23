@@ -13,6 +13,10 @@ $tahun = $this->uri->segment(3);
 $unit = $this->uri->segment(4);
 $this->db->where('kode_unit', $unit);
 $result = $this->db->get('m_unit_kerja')->row();
+////////////////////////////////////////////////
+$this->db->where('kode_unit', $unit);
+$this->db->where('tahun', $tahun);
+$ba = $this->db->get('v_stock_opname_last_no_so')->row();
 ?>
 <link rel="stylesheet" media="screen, print" href="<?php echo base_url() ?>assets/smartadmin/css/vendors.bundle.css">
 <link rel="stylesheet" media="screen, print" href="<?php echo base_url() ?>assets/smartadmin/css/app.bundle.css">
@@ -24,7 +28,7 @@ $result = $this->db->get('m_unit_kerja')->row();
     </tr>
     <tr>
         <th colspan="14">
-            <h3 class="text-center">NOMOR : </h3>
+            <h3 class="text-center">NOMOR : <?php echo $ba->no_so ?></h3>
         </th>
     </tr>
 </table>
