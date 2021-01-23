@@ -18,8 +18,8 @@ class T_stock_opname_model extends CI_Model
 	// get all
 	function get_all()
 	{
-		$this->db->order_by($this->id, $this->order);
-		return $this->db->get('v_stock_opname')->result();
+		//$this->db->order_by($this->id, $this->order);
+		return $this->db->get('v_stock_opname_report')->result();
 	}
 
 	// get data by id

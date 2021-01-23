@@ -13,38 +13,49 @@ class T_stock_opname extends CI_Controller
 		$this->load->library('form_validation');
 	}
 
+	// public function index()
+	// {
+	// 	$q = urldecode($this->input->get('q', TRUE));
+	// 	$start = intval($this->uri->segment(3));
+
+	// 	if ($q <> '') {
+	// 		$config['base_url'] = base_url() . '.php/c_url/index.html?q=' . urlencode($q);
+	// 		$config['first_url'] = base_url() . 'index.php/t_stock_opname/index.html?q=' . urlencode($q);
+	// 	} else {
+	// 		$config['base_url'] = base_url() . 'index.php/t_stock_opname/index/';
+	// 		$config['first_url'] = base_url() . 'index.php/t_stock_opname/index/';
+	// 	}
+
+	// 	$config['per_page'] = 10;
+	// 	$config['page_query_string'] = FALSE;
+	// 	$config['total_rows'] = $this->T_stock_opname_model->total_rows($q);
+	// 	$t_stock_opname = $this->T_stock_opname_model->get_limit_data($config['per_page'], $start, $q);
+	// 	$config['full_tag_open'] = '<ul class="pagination justify-content-center">';
+	// 	$config['full_tag_close'] = '</ul>';
+	// 	$this->load->library('pagination');
+	// 	$this->pagination->initialize($config);
+
+	// 	$data = array(
+	// 		't_stock_opname_data' => $t_stock_opname,
+	// 		'q' => $q,
+	// 		'pagination' => $this->pagination->create_links(),
+	// 		'total_rows' => $config['total_rows'],
+	// 		'start' => $start,
+	// 	);
+	// 	$this->template->load('template', 't_stock_opname/t_stock_opname_list', $data);
+	// }
+
 	public function index()
 	{
-		$q = urldecode($this->input->get('q', TRUE));
-		$start = intval($this->uri->segment(3));
-
-		if ($q <> '') {
-			$config['base_url'] = base_url() . '.php/c_url/index.html?q=' . urlencode($q);
-			$config['first_url'] = base_url() . 'index.php/t_stock_opname/index.html?q=' . urlencode($q);
-		} else {
-			$config['base_url'] = base_url() . 'index.php/t_stock_opname/index/';
-			$config['first_url'] = base_url() . 'index.php/t_stock_opname/index/';
-		}
-
-		$config['per_page'] = 10;
-		$config['page_query_string'] = FALSE;
-		$config['total_rows'] = $this->T_stock_opname_model->total_rows($q);
-		$t_stock_opname = $this->T_stock_opname_model->get_limit_data($config['per_page'], $start, $q);
-		$config['full_tag_open'] = '<ul class="pagination justify-content-center">';
-		$config['full_tag_close'] = '</ul>';
-		$this->load->library('pagination');
-		$this->pagination->initialize($config);
-
 		$data = array(
-			't_stock_opname_data' => $t_stock_opname,
-			'q' => $q,
-			'pagination' => $this->pagination->create_links(),
-			'total_rows' => $config['total_rows'],
-			'start' => $start,
+			't_stock_opname_data' => $this->T_stock_opname_model->get_all(),
 		);
 		$this->template->load('template', 't_stock_opname/t_stock_opname_list', $data);
 	}
-
+	public function export_xls()
+	{
+		$this->load->view('t_stock_opname/export_xls');
+	}
 	public function read($id)
 	{
 		$row = $this->T_stock_opname_model->get_by_id($id);
