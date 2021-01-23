@@ -32,7 +32,7 @@ class T_rincian_smt extends CI_Controller
     public function rincian_xls($tahun, $periode)
     {
         $data = array(
-            't_rincian_smt_data' => $this->T_rincian_smt_model->get_rincian($tahun, $periode),
+            't_rincian_smt_data' => $this->T_rincian_smt_model->get_rincian_xls($tahun, $periode),
         );
         $this->load->view('t_rincian_smt/rincian_xls', $data);
     }
