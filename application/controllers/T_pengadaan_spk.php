@@ -382,7 +382,7 @@ class T_pengadaan_spk extends CI_Controller
         redirect(site_url('t_pengadaan_spk/read/' . $this->input->post('id_spk')));
     }
 
-    public function delete_detail($id)
+    public function delete_detail($id, $id_spk)
     {
         $row = $this->T_pengadaan_spk_model->get_by_id($id);
 
@@ -392,13 +392,13 @@ class T_pengadaan_spk extends CI_Controller
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
             </button><strong> Delete Record Success</strong></div>');
-            redirect(site_url('t_pengadaan_spk/read/' . $this->uri->segment(3)));
+            redirect(site_url('t_pengadaan_spk/read/' . $id_spk));
         } else {
             $this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
             </button><strong> Record Not Found</strong></div>');
-            redirect(site_url('t_pengadaan_spk/read/' . $this->uri->segment(3)));
+            redirect(site_url('t_pengadaan_spk/read/' . $id_spk));
         }
     }
 }

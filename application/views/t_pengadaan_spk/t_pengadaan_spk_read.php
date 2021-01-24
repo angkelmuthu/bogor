@@ -121,7 +121,7 @@
 														</div>
 														<div class="modal-footer">
 															<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-															<a href="' . base_url() . 't_pengadaan_spk/delete_detail/' . $dt->id . '" class="btn btn-primary">Ya, Hapus</a>
+															<a href="' . base_url() . 't_pengadaan_spk/delete_detail/' . $dt->id . '/' . $this->uri->segment(3) . '" class="btn btn-primary">Ya, Hapus</a>
 														</div>
 													</div>
 												</div>
