@@ -37,13 +37,23 @@
                                                             <label class="form-label" for="simpleinput">Jenis Belanja</label>
                                                             <?php echo select2_dinamis('kode_unit', 'm_unit_kerja', 'kode_unit', 'nama_unit') ?>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="simpleinput">Jenis Belanja</label>
+                                                            <?php echo cmb_dinamis('kode_jenis_belanja', 'v_jenis_belanja', 'kode_jenis_belanja', 'nama_jenis_belanja') ?>
+                                                        </div>
                                                     <?php } else { ?>
                                                         <input type="hidden" name="kode_unit" value="">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="simpleinput">Jenis Belanja</label>
+                                                            <select name="kode_jenis_belanja" class="select2 form-control w-100">
+                                                                <?php $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+                                                                $data = $this->db->get('v_jenis_belanja')->result();
+                                                                foreach ($data as $row) { ?>
+                                                                    <option value="<?php echo $row->kode_jenis_belanja ?>"><?php echo $row->nama_jenis_belanja ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
                                                     <?php } ?>
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="simpleinput">Jenis Belanja</label>
-                                                        <?php echo cmb_dinamis('kode_jenis_belanja', 'v_jenis_belanja', 'kode_jenis_belanja', 'nama_jenis_belanja') ?>
-                                                    </div>
                                                     <div class="form-group">
                                                         <label class="form-label" for="simpleinput">Tahun</label>
                                                         <input type="text" name="tahun" class="form-control" placeholder="tahun" required>

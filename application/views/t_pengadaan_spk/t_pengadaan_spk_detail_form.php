@@ -62,9 +62,9 @@
 								<tr>
 									<td></td>
 									<td><input type="hidden" name="id" value="<?php echo $id; ?>" />
-										<input type="hidden" name="id_spk" value="<?php echo $this->uri->segment(3); ?>" />
+										<input type="hidden" name="id_spk" value="<?php echo $id_spk; ?>" />
 										<button type="submit" class="btn btn-warning waves-effect waves-themed"><i class="fal fa-save"></i> <?php echo $button ?></button>
-										<a href="<?php echo site_url('t_pengadaan_spk/read/' . $this->uri->segment(3)) ?>" class="btn btn-info waves-effect waves-themed"><i class="fal fa-sign-out"></i> Kembali</a></td>
+										<a href="<?php echo site_url('t_pengadaan_spk/read/' . $id_spk) ?>" class="btn btn-info waves-effect waves-themed"><i class="fal fa-sign-out"></i> Kembali</a></td>
 								</tr>
 							</table>
 						</form>

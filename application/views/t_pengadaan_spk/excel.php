@@ -9,16 +9,15 @@ header("Pragma: no-cache");
 header("Expires: 0");
 
 ///////////jenis belanja///////////////////////////
-if (!empty($_GET['kode_unit'])) {
-    $where_unit = $this->db->where('kode_unit', $_GET['kode_unit']);
-} else {
-    $where_unit = $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
-}
+// if (!empty($_GET['kode_unit'])) {
+//     $where_unit = $this->db->where('kode_unit', $_GET['kode_unit']);
+// } else {
+//     $where_unit = $this->db->where('kode_unit', $this->session->userdata('kode_unit'));
+// }
 $this->db->select('nama_jenis_belanja');
 $this->db->where('kode_jenis_belanja', $_GET['kode_jenis_belanja']);
-$where_unit;
-$this->db->group_by('kode_jenis_belanja');
-$result = $this->db->get('v_pengadaan_spk_detail')->row();
+//$where_unit;
+$result = $this->db->get('v_jenis_belanja')->row();
 $jenis_belanja = $result->nama_jenis_belanja;
 
 ///////////pegawai///////////////////////////
