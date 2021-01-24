@@ -27,6 +27,7 @@ class T_rincian_smt_model extends CI_Model
             $this->db->where('a.kode_unit', $unit);
             $this->db->where('a.tahun', $tahun);
             $this->db->where('a.periode', $periode);
+            $this->db->where('a.isdelete', '0');
             $result = $this->db->get();
         } else {
             $this->db->where('tahun', $tahun);
