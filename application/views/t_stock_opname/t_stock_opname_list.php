@@ -91,7 +91,9 @@
                                             <th class="text-center" rowspan="2">Harga Satuan</th>
                                             <th class="text-center" rowspan="2">Nilai Persediaan</th>
                                             <th class="text-center" colspan="2">Selisih</th>
-                                            <th class="text-center" rowspan="2">Action</th>
+                                            <?php if ($this->session->userdata('kode_jenis_unit') != 3) { ?>
+                                                <th class="text-center" rowspan="2">Action</th>
+                                            <?php } ?>
                                         </tr>
                                         <tr>
                                             <th class="text-center">SMT 1</th>
@@ -114,7 +116,9 @@
                                             <th class="text-center">12</th>
                                             <th class="text-center">13</th>
                                             <th class="text-center">14</th>
-                                            <th class="text-center"></th>
+                                            <?php if ($this->session->userdata('kode_jenis_unit') != 3) { ?>
+                                                <th class="text-center"></th>
+                                            <?php } ?>
                                         </tr>
                                     </thead>
                                     <tbody><?php
@@ -132,9 +136,11 @@
                                                     <td><?php echo $t_stock_opname->nilai_persediaan ?></td>
                                                     <td></td>
                                                     <td></td>
-                                                    <td style="text-align:center" width="170px">
+                                                    <?php if ($this->session->userdata('kode_jenis_unit') != 3) { ?>
+                                                        <td style="text-align:center" width="170px">
 
-                                                    </td>
+                                                        </td>
+                                                    <?php } ?>
                                                 </tr>
                                             <?php } else { ?>
                                                 <tr>
@@ -152,9 +158,10 @@
                                                     <td><?php echo $t_stock_opname->nilai_persediaan ?></td>
                                                     <td><?php echo $t_stock_opname->selisih_unit ?></td>
                                                     <td><?php echo $t_stock_opname->selisih_rupiah ?></td>
-                                                    <td style="text-align:center" width="170px">
-                                                        <?php
-                                                        if ($this->session->userdata('kode_jenis_unit') != 3) {
+                                                    <?php if ($this->session->userdata('kode_jenis_unit') != 3) { ?>
+                                                        <td style="text-align:center" width="170px">
+                                                            <?php
+
                                                             echo anchor(site_url('t_stock_opname/read/' . $t_stock_opname->id), '<i class="fal fa-eye" aria-hidden="true"></i>', 'class="btn btn-info btn-xs waves-effect waves-themed"');
                                                             echo '  ';
                                                             echo anchor(site_url('t_stock_opname/update/' . $t_stock_opname->id), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-xs waves-effect waves-themed"');
@@ -180,9 +187,10 @@
         </div>
     </div>
 </div>';
-                                                        }
-                                                        ?>
-                                                    </td>
+
+                                                            ?>
+                                                        </td>
+                                                    <?php } ?>
                                                 </tr>
                                         <?php
                                                 }
