@@ -34,15 +34,15 @@
                                                 <div class="modal-body text-left">
                                                     <?php if ($this->session->userdata('kode_jenis_unit') == 3) { ?>
                                                         <div class="form-group">
-                                                            <label class="form-label" for="simpleinput">Jenis Belanja</label>
+                                                            <label class="form-label" for="simpleinput">Unit Kerja</label>
                                                             <?php echo select2_dinamis('kode_unit', 'm_unit_kerja', 'kode_unit', 'nama_unit') ?>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="form-label" for="simpleinput">Jenis Belanja</label>
-                                                            <?php echo cmb_dinamis('kode_jenis_belanja', 'v_jenis_belanja', 'kode_jenis_belanja', 'nama_jenis_belanja') ?>
+                                                            <?php echo select2_dinamis('kode_jenis_belanja', 'v_jenis_belanja', 'kode_jenis_belanja', 'nama_jenis_belanja') ?>
                                                         </div>
                                                     <?php } else { ?>
-                                                        <input type="hidden" name="kode_unit" value="">
+                                                        <input type="hidden" name="kode_unit" value="<?php echo $this->session->userdata('kode_unit') ?>">
                                                         <div class="form-group">
                                                             <label class="form-label" for="simpleinput">Jenis Belanja</label>
                                                             <select name="kode_jenis_belanja" class="select2 form-control w-100">
