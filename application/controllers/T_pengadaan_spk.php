@@ -384,22 +384,22 @@ class T_pengadaan_spk extends CI_Controller
 
     public function delete_detail($id, $id_spk)
     {
-        $row = $this->T_pengadaan_spk_model->get_by_id($id);
+        //$row = $this->T_pengadaan_spk_model->get_by_id($id);
 
-        if ($row) {
-            $this->T_pengadaan_spk_model->delete_detail($id);
-            $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
+        //if ($row) {
+        $this->T_pengadaan_spk_model->delete_detail($id);
+        $this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
             </button><strong> Delete Record Success</strong></div>');
-            redirect(site_url('t_pengadaan_spk/read/' . $id_spk));
-        } else {
-            $this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true"><i class="fal fa-times"></i></span>
-            </button><strong> Record Not Found</strong></div>');
-            redirect(site_url('t_pengadaan_spk/read/' . $id_spk));
-        }
+        redirect(site_url('t_pengadaan_spk/read/' . $id_spk));
+        //} else {
+        // $this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
+        // <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        //     <span aria-hidden="true"><i class="fal fa-times"></i></span>
+        // </button><strong> Record Not Found</strong></div>');
+        // redirect(site_url('t_pengadaan_spk/read/' . $id_spk));
+        //}
     }
 }
 
