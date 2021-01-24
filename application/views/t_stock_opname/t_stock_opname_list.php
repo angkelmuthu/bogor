@@ -154,12 +154,13 @@
                                                     <td><?php echo $t_stock_opname->selisih_rupiah ?></td>
                                                     <td style="text-align:center" width="170px">
                                                         <?php
-                                                        echo anchor(site_url('t_stock_opname/read/' . $t_stock_opname->id), '<i class="fal fa-eye" aria-hidden="true"></i>', 'class="btn btn-info btn-xs waves-effect waves-themed"');
-                                                        echo '  ';
-                                                        echo anchor(site_url('t_stock_opname/update/' . $t_stock_opname->id), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-xs waves-effect waves-themed"');
-                                                        echo '  ';
-                                                        echo
-                                                            '<button type="button" class="btn btn-danger btn-xs waves-effect waves-themed" data-toggle="modal" data-target="#default-example-modal-sm' . $t_stock_opname->id . '"><i class="fal fa-trash" aria-hidden="true"></i></button>
+                                                        if ($this->session->userdata('kode_jenis_unit') != 3) {
+                                                            echo anchor(site_url('t_stock_opname/read/' . $t_stock_opname->id), '<i class="fal fa-eye" aria-hidden="true"></i>', 'class="btn btn-info btn-xs waves-effect waves-themed"');
+                                                            echo '  ';
+                                                            echo anchor(site_url('t_stock_opname/update/' . $t_stock_opname->id), '<i class="fal fa-pencil" aria-hidden="true"></i>', 'class="btn btn-warning btn-xs waves-effect waves-themed"');
+                                                            echo '  ';
+                                                            echo
+                                                                '<button type="button" class="btn btn-danger btn-xs waves-effect waves-themed" data-toggle="modal" data-target="#default-example-modal-sm' . $t_stock_opname->id . '"><i class="fal fa-trash" aria-hidden="true"></i></button>
     <div class="modal fade" id="default-example-modal-sm' . $t_stock_opname->id . '" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -179,6 +180,7 @@
         </div>
     </div>
 </div>';
+                                                        }
                                                         ?>
                                                     </td>
                                                 </tr>
