@@ -29,7 +29,7 @@
 								</tr>
 								<tr>
 									<td width='250'>Jenis Barang <?php echo form_error('kode_jenis_barang') ?></td>
-									<td><?php echo select2_dinamis('kode_jenis_barang', 'm_jenis_barang', 'kode_jenis_barang', 'nama_jenis_barang') ?></td>
+									<td><?php echo select2_dinamis('kode_jenis_barang', 'm_jenis_barang', 'kode_jenis_barang', 'nama_jenis_barang', $kode_jenis_barang) ?></td>
 								</tr>
 								<tr>
 									<td width='250'>Nama Barang <?php echo form_error('barang') ?></td>

@@ -121,6 +121,7 @@
                                             $start = 0;
                                             $this->db->where('tahun', $_GET['tahun']);
                                             $this->db->where('kode_unit', $_GET['unit']);
+                                            //$this->db->order_by('tahun,kode_unit,kode_jenis_barang,urut,id', 'ASC');
                                             $result = $this->db->get('v_stock_opname_report')->result();
                                             foreach ($result as $t_stock_opname) {
                                                 if ($t_stock_opname->urut == '1') {
