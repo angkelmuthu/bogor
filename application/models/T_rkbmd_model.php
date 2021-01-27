@@ -16,9 +16,10 @@ class T_rkbmd_model extends CI_Model
 	}
 
 	// get all
-	function get_all()
+	function get_all($tahun, $kode_unit)
 	{
-		$this->db->order_by($this->id, $this->order);
+		$this->db->where('kode_unit', $kode_unit);
+		$this->db->where('tahun', $tahun);
 		return $this->db->get($this->table)->result();
 	}
 

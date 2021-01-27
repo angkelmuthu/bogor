@@ -15,34 +15,10 @@ class T_rkbmd extends CI_Controller
 
 	public function index()
 	{
-		$q = urldecode($this->input->get('q', TRUE));
-		$start = intval($this->uri->segment(3));
-
-		if ($q <> '') {
-			$config['base_url'] = base_url() . '.php/c_url/index.html?q=' . urlencode($q);
-			$config['first_url'] = base_url() . 'index.php/t_rkbmd/index.html?q=' . urlencode($q);
-		} else {
-			$config['base_url'] = base_url() . 'index.php/t_rkbmd/index/';
-			$config['first_url'] = base_url() . 'index.php/t_rkbmd/index/';
-		}
-
-		$config['per_page'] = 10;
-		$config['page_query_string'] = FALSE;
-		$config['total_rows'] = $this->T_rkbmd_model->total_rows($q);
-		$t_rkbmd = $this->T_rkbmd_model->get_limit_data($config['per_page'], $start, $q);
-		$config['full_tag_open'] = '<ul class="pagination justify-content-center">';
-		$config['full_tag_close'] = '</ul>';
-		$this->load->library('pagination');
-		$this->pagination->initialize($config);
-
-		$data = array(
-			't_rkbmd_data' => $t_rkbmd,
-			'q' => $q,
-			'pagination' => $this->pagination->create_links(),
-			'total_rows' => $config['total_rows'],
-			'start' => $start,
-		);
-		$this->template->load('template', 't_rkbmd/t_rkbmd_list', $data);
+		// $data = array(
+		// 	't_rkbmd_data' => $t_rkbmd,
+		// );
+		$this->template->load('template', 't_rkbmd/t_rkbmd_list');
 	}
 
 	public function read($id)
@@ -121,6 +97,51 @@ class T_rkbmd extends CI_Controller
 		);
 		$this->template->load('template', 't_rkbmd/t_rkbmd_form', $data);
 	}
+
+	public function create_action()
+	{
+		// $this->_rules();
+
+		// if ($this->form_validation->run() == FALSE) {
+		// 	$this->create();
+		// } else {
+		$data = array(
+			'id_parent' => $this->input->post('id_parent', TRUE),
+			'level' => $this->input->post('level', TRUE),
+			'tahun' => $this->input->post('tahun', TRUE),
+			'kode_unit' => $this->input->post('kode_unit', TRUE),
+			'nama' => $this->input->post('nama', TRUE),
+			'kode_barang' => $this->input->post('kode_barang', TRUE),
+			'nama_barang' => $this->input->post('nama_barang', TRUE),
+			'semula_jumlah' => $this->input->post('semula_jumlah', TRUE),
+			'semula_satuan' => $this->input->post('semula_satuan', TRUE),
+			'menjadi_jumlah' => $this->input->post('menjadi_jumlah', TRUE),
+			'menjadi_satuan' => $this->input->post('menjadi_satuan', TRUE),
+			'alasan_perubahan' => $this->input->post('alasan_perubahan', TRUE),
+			'km_jumlah' => $this->input->post('km_jumlah', TRUE),
+			'km_satuan' => $this->input->post('km_satuan', TRUE),
+			'optim_kode_barang' => $this->input->post('optim_kode_barang', TRUE),
+			'optim_nama_barang' => $this->input->post('optim_nama_barang', TRUE),
+			'optim_jumlah' => $this->input->post('optim_jumlah', TRUE),
+			'optim_satuan' => $this->input->post('optim_satuan', TRUE),
+			'riil_jumlah' => $this->input->post('riil_jumlah', TRUE),
+			'riil_satuan' => $this->input->post('riil_satuan', TRUE),
+			'created_by' => $this->session->userdata('full_name'),
+			'created_date' => date('Y-m-d H:i:s'),
+			//'updated_by' => date('Y-m-d H:i:s'),
+			//'updated_date' => $this->session->userdata('nama'),
+			'isdelete' => 0,
+		);
+
+		$this->T_rkbmd_model->insert($data);
+		$this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+            </button><strong> Create Record Success 2</strong></div>');
+		redirect(site_url('t_rkbmd?tahun=' . $this->input->post('tahun') . '&kode_unit=' . $this->session->userdata('kode_unit')));
+		//}
+	}
+
 	public function create_program()
 	{
 		$data = array(
@@ -141,7 +162,7 @@ class T_rkbmd extends CI_Controller
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true"><i class="fal fa-times"></i></span>
 		</button><strong> Create Record Success</strong></div>');
-		redirect(site_url('t_rkbmd'));
+		redirect(site_url('t_rkbmd?tahun=' . $this->input->post('tahun') . '&kode_unit=' . $this->session->userdata('kode_unit')));
 	}
 	public function create_kegiatan()
 	{
@@ -163,7 +184,7 @@ class T_rkbmd extends CI_Controller
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true"><i class="fal fa-times"></i></span>
 		</button><strong> Create Record Success</strong></div>');
-		redirect(site_url('t_rkbmd'));
+		redirect(site_url('t_rkbmd?tahun=' . $this->input->post('tahun') . '&kode_unit=' . $this->session->userdata('kode_unit')));
 	}
 	public function create_output()
 	{
@@ -185,51 +206,9 @@ class T_rkbmd extends CI_Controller
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true"><i class="fal fa-times"></i></span>
 		</button><strong> Create Record Success</strong></div>');
-		redirect(site_url('t_rkbmd'));
+		redirect(site_url('t_rkbmd?tahun=' . $this->input->post('tahun') . '&kode_unit=' . $this->session->userdata('kode_unit')));
 	}
-	public function create_action()
-	{
-		$this->_rules();
 
-		if ($this->form_validation->run() == FALSE) {
-			$this->create();
-		} else {
-			$data = array(
-				'id_parent' => $this->input->post('id_parent', TRUE),
-				'level' => $this->input->post('level', TRUE),
-				'tahun' => $this->input->post('tahun', TRUE),
-				'kode_unit' => $this->input->post('kode_unit', TRUE),
-				'nama' => $this->input->post('nama', TRUE),
-				'kode_barang' => $this->input->post('kode_barang', TRUE),
-				'nama_barang' => $this->input->post('nama_barang', TRUE),
-				'semula_jumlah' => $this->input->post('semula_jumlah', TRUE),
-				'semula_satuan' => $this->input->post('semula_satuan', TRUE),
-				'menjadi_jumlah' => $this->input->post('menjadi_jumlah', TRUE),
-				'menjadi_satuan' => $this->input->post('menjadi_satuan', TRUE),
-				'alasan_perubahan' => $this->input->post('alasan_perubahan', TRUE),
-				'km_jumlah' => $this->input->post('km_jumlah', TRUE),
-				'km_satuan' => $this->input->post('km_satuan', TRUE),
-				'optim_kode_barang' => $this->input->post('optim_kode_barang', TRUE),
-				'optim_nama_barang' => $this->input->post('optim_nama_barang', TRUE),
-				'optim_jumlah' => $this->input->post('optim_jumlah', TRUE),
-				'optim_satuan' => $this->input->post('optim_satuan', TRUE),
-				'riil_jumlah' => $this->input->post('riil_jumlah', TRUE),
-				'riil_satuan' => $this->input->post('riil_satuan', TRUE),
-				'created_by' => $this->session->userdata('full_name'),
-				'created_date' => date('Y-m-d H:i:s'),
-				//'updated_by' => date('Y-m-d H:i:s'),
-				//'updated_date' => $this->session->userdata('nama'),
-				'isdelete' => 0,
-			);
-
-			$this->T_rkbmd_model->insert($data);
-			$this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true"><i class="fal fa-times"></i></span>
-            </button><strong> Create Record Success 2</strong></div>');
-			redirect(site_url('t_rkbmd'));
-		}
-	}
 
 	public function update($id)
 	{
