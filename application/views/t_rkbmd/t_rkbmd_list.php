@@ -151,7 +151,9 @@
                                             <th class="text-center">15</th>
                                             <th class="text-center">16</th>
                                             <th class="text-center">17</th>
-                                            <th class="text-center"></th>
+                                            <?php if ($this->session->userdata('kode_jenis_unit') != 3) { ?>
+                                                <th class="text-center"></th>
+                                            <?php } ?>
                                         </tr>
                                     </thead>
                                     <tbody>
