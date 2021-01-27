@@ -80,3 +80,9 @@
 <script src="<?php echo base_url() ?>assets/smartadmin/js/formplugins/select2/select2.bundle.js"></script>
 <script src="<?php echo base_url() ?>assets/smartadmin/js/formplugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
 <script src="<?php echo base_url() ?>assets/smartadmin/js/kostum.js"></script>
+<script type="text/javascript">
+	$('#harga_satuan').keyup(function() {
+		$('#total').val(parseInt($('#harga_satuan').val()) * parseInt($('#jumlah_barang').val()));
+
+	})
+</script>

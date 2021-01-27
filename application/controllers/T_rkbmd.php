@@ -299,7 +299,7 @@ class T_rkbmd extends CI_Controller
 		}
 	}
 
-	public function delete($id)
+	public function delete($id, $tahun, $kode_unit)
 	{
 		$row = $this->T_rkbmd_model->get_by_id($id);
 
@@ -309,13 +309,13 @@ class T_rkbmd extends CI_Controller
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
             </button><strong> Delete Record Success</strong></div>');
-			redirect(site_url('t_rkbmd'));
+			redirect(site_url('t_rkbmd?tahun=' . $tahun . '&kode_unit=' . $kode_unit));
 		} else {
 			$this->session->set_flashdata('message', '<div class="alert bg-warning-500" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true"><i class="fal fa-times"></i></span>
             </button><strong> Record Not Found</strong></div>');
-			redirect(site_url('t_rkbmd'));
+			redirect(site_url('t_rkbmd?tahun=' . $tahun . '&kode_unit=' . $kode_unit));
 		}
 	}
 

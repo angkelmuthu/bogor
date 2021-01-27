@@ -258,13 +258,13 @@ class T_pengadaan_spk extends CI_Controller
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////spk detail ///////////////////////////////////////////////////////////////////////////////////////////
-    public function create_detail()
+    public function create_detail($id_spk)
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('t_pengadaan_spk/create_detail_action'),
             'id' => set_value('id'),
-            'id_spk' => set_value('id_spk'),
+            'id_spk' => $id_spk, //set_value('id_spk'),
             'kode_jenis_belanja' => set_value('kode_jenis_belanja'),
             'nama_jenis_belanja' => set_value('nama_jenis_belanja'),
             'kode_kelompok_barang' => set_value('kode_kelompok_barang'),
