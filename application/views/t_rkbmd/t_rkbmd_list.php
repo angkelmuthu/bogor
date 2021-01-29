@@ -36,11 +36,11 @@
                                                 <td>
                                                     <select name="kode_unit" class="select2 form-control">
                                                         <?php
-                                                        $this->db->where('kode_jenis_unit !=', '3');
-                                                        $result = $this->db->get('m_unit_kerja')->result();
-                                                        foreach ($result as $dt) {
-                                                            echo '<option value="' . $dt->kode_unit . '">' . $dt->nama_unit . '</option>';
-                                                        } ?>
+                                                            $this->db->where('kode_jenis_unit !=', '3');
+                                                            $result = $this->db->get('m_unit_kerja')->result();
+                                                            foreach ($result as $dt) {
+                                                                echo '<option value="' . $dt->kode_unit . '">' . $dt->nama_unit . '</option>';
+                                                            } ?>
                                                     </select>
                                                 </td>
                                             <?php } else { ?>
@@ -59,48 +59,51 @@
                         <?php if (isset($_GET['tahun']) && isset($_GET['kode_unit'])) {
                             $this->db->where('kode_unit', $_GET['kode_unit']);
                             $result = $this->db->get('m_unit_kerja')->row();
-                        ?>
+                            ?>
                             <h3 class="text-center"><?php echo $result->nama_unit ?></h3>
                             <h3 class="text-center">TAHUN <?php echo $_GET['tahun'] ?></h3>
-                            <?php if ($this->session->userdata('kode_jenis_unit') != 3) { ?>
-                                <div class="text-center mb-2">
+                            <div class="text-center mb-2">
+                                <a href="<?php echo site_url('t_rkbmd/export_xls?tahun=' . $_GET['tahun'] . '&kode_unit=' . $_GET['kode_unit']) ?>" class="btn btn-sm btn-primary"><i class="fal fa-file-excel"></i> Export Excel</a>
+                                <?php if ($this->session->userdata('kode_jenis_unit') != 3) { ?>
+
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#tambah-program"><i class="fal fa-plus-square"></i> Tambah Program</button>
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="tambah-program" tabindex="-1" role="dialog" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <form method="POST" action="<?php echo site_url('t_rkbmd/create_program') ?>">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">
-                                                        Tambah Program
-                                                        <small class="m-0 text-muted">
-                                                            Silahkan isi nama Program
-                                                        </small>
-                                                    </h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="simpleinput">Nama Program</label>
-                                                        <input type="text" name="nama" id="simpleinput" class="form-control" required>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="tambah-program" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <form method="POST" action="<?php echo site_url('t_rkbmd/create_program') ?>">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">
+                                                            Tambah Program
+                                                            <small class="m-0 text-muted">
+                                                                Silahkan isi nama Program
+                                                            </small>
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                        </button>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="form-label" for="simpleinput">Tahun Program</label>
-                                                        <input type="number" name="tahun" id="simpleinput" class="form-control" value="<?php echo $_GET['tahun'] ?>" readonly required>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="simpleinput">Nama Program</label>
+                                                            <input type="text" name="nama" id="simpleinput" class="form-control" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="form-label" for="simpleinput">Tahun Program</label>
+                                                            <input type="number" name="tahun" id="simpleinput" class="form-control" value="<?php echo $_GET['tahun'] ?>" readonly required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save changes</button>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                            <?php } ?>
+                                <?php } ?>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover table-striped">
                                     <thead class="thead-themed">
@@ -159,16 +162,16 @@
                                     <tbody>
                                         <ol class="mb-g">
                                             <?php
-                                            $program = 0;
-                                            $kegiatan = 0;
-                                            $output = 0;
-                                            $barang = 0;
-                                            $this->db->where('isdelete', '0');
-                                            $this->db->where('kode_unit', $_GET['kode_unit']);
-                                            $this->db->where('tahun', $_GET['tahun']);
-                                            $t_rkbmd_data = $this->db->get('t_rkbmd')->result();
-                                            foreach ($t_rkbmd_data as $t_rkbmd) {
-                                            ?>
+                                                $program = 0;
+                                                $kegiatan = 0;
+                                                $output = 0;
+                                                $barang = 0;
+                                                $this->db->where('isdelete', '0');
+                                                $this->db->where('kode_unit', $_GET['kode_unit']);
+                                                $this->db->where('tahun', $_GET['tahun']);
+                                                $t_rkbmd_data = $this->db->get('t_rkbmd')->result();
+                                                foreach ($t_rkbmd_data as $t_rkbmd) {
+                                                    ?>
                                                 <tr>
                                                     <?php if ($t_rkbmd->level == 1) { ?>
                                                         <td><?php echo ++$program ?>.</td>
@@ -313,8 +316,8 @@
                                                     <?php } ?>
                                                 </tr>
                                             <?php
-                                            }
-                                            ?>
+                                                }
+                                                ?>
                                         </ol>
                                     </tbody>
                                 </table>
