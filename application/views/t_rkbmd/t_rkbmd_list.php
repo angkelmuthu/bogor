@@ -36,11 +36,11 @@
                                                 <td>
                                                     <select name="kode_unit" class="select2 form-control">
                                                         <?php
-                                                            $this->db->where('kode_jenis_unit !=', '3');
-                                                            $result = $this->db->get('m_unit_kerja')->result();
-                                                            foreach ($result as $dt) {
-                                                                echo '<option value="' . $dt->kode_unit . '">' . $dt->nama_unit . '</option>';
-                                                            } ?>
+                                                        $this->db->where('kode_jenis_unit !=', '3');
+                                                        $result = $this->db->get('m_unit_kerja')->result();
+                                                        foreach ($result as $dt) {
+                                                            echo '<option value="' . $dt->kode_unit . '">' . $dt->nama_unit . '</option>';
+                                                        } ?>
                                                     </select>
                                                 </td>
                                             <?php } else { ?>
@@ -59,7 +59,7 @@
                         <?php if (isset($_GET['tahun']) && isset($_GET['kode_unit'])) {
                             $this->db->where('kode_unit', $_GET['kode_unit']);
                             $result = $this->db->get('m_unit_kerja')->row();
-                            ?>
+                        ?>
                             <h3 class="text-center"><?php echo $result->nama_unit ?></h3>
                             <h3 class="text-center">TAHUN <?php echo $_GET['tahun'] ?></h3>
                             <div class="text-center mb-2">
@@ -162,16 +162,16 @@
                                     <tbody>
                                         <ol class="mb-g">
                                             <?php
-                                                $program = 0;
-                                                $kegiatan = 0;
-                                                $output = 0;
-                                                $barang = 0;
-                                                $this->db->where('isdelete', '0');
-                                                $this->db->where('kode_unit', $_GET['kode_unit']);
-                                                $this->db->where('tahun', $_GET['tahun']);
-                                                $t_rkbmd_data = $this->db->get('t_rkbmd')->result();
-                                                foreach ($t_rkbmd_data as $t_rkbmd) {
-                                                    ?>
+                                            $program = 0;
+                                            $kegiatan = 0;
+                                            $output = 0;
+                                            $barang = 0;
+                                            $this->db->where('isdelete', '0');
+                                            $this->db->where('kode_unit', $_GET['kode_unit']);
+                                            $this->db->where('tahun', $_GET['tahun']);
+                                            $t_rkbmd_data = $this->db->get('t_rkbmd')->result();
+                                            foreach ($t_rkbmd_data as $t_rkbmd) {
+                                            ?>
                                                 <tr>
                                                     <?php if ($t_rkbmd->level == 1) { ?>
                                                         <td><?php echo ++$program ?>.</td>
@@ -240,8 +240,8 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <input type="text" name="id" value="<?php echo $t_rkbmd->id ?>">
-                                                                                    <input type="text" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <input type="hidden" name="id" value="<?php echo $t_rkbmd->id ?>">
+                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label" for="simpleinput">Nama Program</label>
                                                                                         <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkbmd->nama ?>" class="form-control" required>
@@ -272,8 +272,8 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <input type="text" name="id_parent" value="<?php echo $t_rkbmd->id ?>">
-                                                                                    <input type="text" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <input type="hidden" name="id_parent" value="<?php echo $t_rkbmd->id ?>">
+                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label" for="simpleinput">Nama Kegiatan</label>
                                                                                         <input type="text" name="nama" id="simpleinput" class="form-control" required>
@@ -312,8 +312,8 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <input type="text" name="id" value="<?php echo $t_rkbmd->id ?>">
-                                                                                    <input type="text" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <input type="hidden" name="id" value="<?php echo $t_rkbmd->id ?>">
+                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label" for="simpleinput">Nama Kegiatan</label>
                                                                                         <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkbmd->nama ?>" class="form-control" required>
@@ -344,8 +344,8 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <input type="text" name="id_parent" value="<?php echo $t_rkbmd->id ?>">
-                                                                                    <input type="text" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <input type="hidden" name="id_parent" value="<?php echo $t_rkbmd->id ?>">
+                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label" for="simpleinput">Nama Output</label>
                                                                                         <input type="text" name="nama" id="simpleinput" class="form-control" required>
@@ -384,8 +384,8 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <input type="text" name="id" value="<?php echo $t_rkbmd->id ?>">
-                                                                                    <input type="text" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <input type="hidden" name="id" value="<?php echo $t_rkbmd->id ?>">
+                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label" for="simpleinput">Nama Output</label>
                                                                                         <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkbmd->nama ?>" class="form-control" required>
@@ -412,8 +412,8 @@
                                                     <?php } ?>
                                                 </tr>
                                             <?php
-                                                }
-                                                ?>
+                                            }
+                                            ?>
                                         </ol>
                                     </tbody>
                                 </table>
