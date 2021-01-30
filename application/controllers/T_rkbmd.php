@@ -20,7 +20,10 @@ class T_rkbmd extends CI_Controller
 		// );
 		$this->template->load('template', 't_rkbmd/t_rkbmd_list');
 	}
-
+	public function export_xls()
+	{
+		$this->load->view('t_rkbmd/export_xls');
+	}
 	public function read($id)
 	{
 		$row = $this->T_rkbmd_model->get_by_id($id);
