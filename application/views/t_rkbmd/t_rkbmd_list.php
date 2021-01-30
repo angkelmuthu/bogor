@@ -216,8 +216,40 @@
                                                                 <div class="btn-group" role="group">
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
-                                                                        <a class="dropdown-item" href="javascript:void(0)">Edit Judul Program</a>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkbmd->id ?>">Edit Program</button>
                                                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#tambah-kegiatan<?php echo $t_rkbmd->id ?>">Tambah Kegiatan</button>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Modal Edit Program-->
+                                                                <div class="modal fade" id="edit-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <form method="POST" action="<?php echo site_url('t_rkbmd/update_judul') ?>">
+                                                                            <div class="modal-content text-left">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">
+                                                                                        Edit Program
+                                                                                        <small class="m-0 text-muted">
+                                                                                            Silahkan Ubah nama Program
+                                                                                        </small>
+                                                                                    </h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <input type="text" name="id" value="<?php echo $t_rkbmd->id ?>">
+                                                                                    <input type="text" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label" for="simpleinput">Nama Program</label>
+                                                                                        <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkbmd->nama ?>" class="form-control" required>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal -->
@@ -256,8 +288,40 @@
                                                                 <div class="btn-group" role="group">
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
-                                                                        <a class="dropdown-item" href="javascript:void(0)">Edit Judul Kegiatan</a>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkbmd->id ?>">Edit Kegiatan</button>
                                                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#tambah-output<?php echo $t_rkbmd->id ?>">Tambah Output</button>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Modal Edit Program-->
+                                                                <div class="modal fade" id="edit-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <form method="POST" action="<?php echo site_url('t_rkbmd/update_judul') ?>">
+                                                                            <div class="modal-content text-left">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">
+                                                                                        Edit Kegiatan
+                                                                                        <small class="m-0 text-muted">
+                                                                                            Silahkan Ubah nama Kegiatan
+                                                                                        </small>
+                                                                                    </h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <input type="text" name="id" value="<?php echo $t_rkbmd->id ?>">
+                                                                                    <input type="text" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label" for="simpleinput">Nama Kegiatan</label>
+                                                                                        <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkbmd->nama ?>" class="form-control" required>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal -->
@@ -296,15 +360,47 @@
                                                                 <div class="btn-group" role="group">
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
-                                                                        <a class="dropdown-item" href="javascript:void(0)">Edit Judul Output</a>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkbmd->id ?>">Edit Output</button>
                                                                         <a href="<?php echo site_url('t_rkbmd/create/' . $t_rkbmd->id . '/' . $t_rkbmd->tahun) ?>" class="dropdown-item">Tambah Barang</a>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- Modal Edit Output-->
+                                                                <div class="modal fade" id="edit-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <form method="POST" action="<?php echo site_url('t_rkbmd/update_judul') ?>">
+                                                                            <div class="modal-content text-left">
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">
+                                                                                        Edit Output
+                                                                                        <small class="m-0 text-muted">
+                                                                                            Silahkan Ubah nama Output
+                                                                                        </small>
+                                                                                    </h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <input type="text" name="id" value="<?php echo $t_rkbmd->id ?>">
+                                                                                    <input type="text" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <div class="form-group">
+                                                                                        <label class="form-label" for="simpleinput">Nama Output</label>
+                                                                                        <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkbmd->nama ?>" class="form-control" required>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             <?php } elseif ($t_rkbmd->level == 4) { ?>
                                                                 <div class="btn-group" role="group">
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
-                                                                        <a href="<?php echo site_url('t_rkbmd/update/' . $t_rkbmd->id) ?>" class=" dropdown-item">Edit Barang</a>
+                                                                        <a href="<?php echo site_url('t_rkbmd/update/' . $t_rkbmd->id . '/' . $t_rkbmd->tahun) ?>" class=" dropdown-item">Edit Barang</a>
                                                                         <a href="<?php echo site_url('t_rkbmd/delete/' . $t_rkbmd->id . '/' . $t_rkbmd->tahun . '/' . $t_rkbmd->kode_unit) ?>" class="dropdown-item">Hapus Barang</a>
                                                                     </div>
                                                                 </div>
