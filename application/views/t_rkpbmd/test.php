@@ -168,7 +168,7 @@
                                             $this->db->where('isdelete', '0');
                                             $this->db->where('kode_unit', $_GET['kode_unit']);
                                             $this->db->where('tahun', $_GET['tahun']);
-                                            $t_rkbmd_data = $this->db->get('v_rkbmd')->result();
+                                            $t_rkbmd_data = $this->db->get('t_rkbmd')->result();
                                             foreach ($t_rkbmd_data as $t_rkbmd) {
                                             ?>
                                                 <tr>
@@ -219,7 +219,7 @@
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
                                                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkbmd->id ?>">Edit Program</button>
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkbmd->id ?>">Delete Program</button>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkbmd->id ?>">Hapus Program</button>
                                                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#tambah-kegiatan<?php echo $t_rkbmd->id ?>">Tambah Kegiatan</button>
                                                                     </div>
                                                                 </div>
@@ -253,42 +253,6 @@
                                                                                 </div>
                                                                             </div>
                                                                         </form>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Modal Delete judul-->
-                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content text-left">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">
-                                                                                    Delete Program
-                                                                                </h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <?php
-                                                                            $this->db->where('id_parent', $t_rkbmd->id);
-                                                                            $this->db->where('isdelete', '0');
-                                                                            $query = $this->db->get('t_rkbmd');
-                                                                            $num = $query->num_rows();
-                                                                            if ($num > 0) { ?>
-                                                                                <div class="modal-body">
-                                                                                    <h4>Maaf Data Program tidak bisa dihapus,silahkan hapus data Kegiatan terlebih dahulu</h4>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                </div>
-                                                                            <?php } else { ?>
-                                                                                <div class="modal-body">
-                                                                                    <h4>Apakah anda yakin ingin menghapus data Program?</h4>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                                                    <a href="<?php echo site_url('t_rkbmd/delete_judul/' . $t_rkbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
-                                                                                </div>
-                                                                            <?php } ?>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal -->
@@ -328,7 +292,6 @@
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
                                                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkbmd->id ?>">Edit Kegiatan</button>
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkbmd->id ?>">Delete Kegiatan</button>
                                                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#tambah-output<?php echo $t_rkbmd->id ?>">Tambah Output</button>
                                                                     </div>
                                                                 </div>
@@ -362,42 +325,6 @@
                                                                                 </div>
                                                                             </div>
                                                                         </form>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Modal Delete judul-->
-                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content text-left">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">
-                                                                                    Delete Kegiatan
-                                                                                </h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <?php
-                                                                            $this->db->where('id_parent', $t_rkbmd->id);
-                                                                            $this->db->where('isdelete', '0');
-                                                                            $query = $this->db->get('t_rkbmd');
-                                                                            $num = $query->num_rows();
-                                                                            if ($num > 0) { ?>
-                                                                                <div class="modal-body">
-                                                                                    <h4>Maaf Data Kegiatan tidak bisa dihapus,silahkan hapus data Output terlebih dahulu</h4>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                </div>
-                                                                            <?php } else { ?>
-                                                                                <div class="modal-body">
-                                                                                    <h4>Apakah anda yakin ingin menghapus data Kegiatan?</h4>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                                                    <a href="<?php echo site_url('t_rkbmd/delete_judul/' . $t_rkbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
-                                                                                </div>
-                                                                            <?php } ?>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal -->
@@ -437,7 +364,6 @@
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
                                                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkbmd->id ?>">Edit Output</button>
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkbmd->id ?>">Delete Output</button>
                                                                         <a href="<?php echo site_url('t_rkbmd/create/' . $t_rkbmd->id . '/' . $t_rkbmd->tahun) ?>" class="dropdown-item">Tambah Barang</a>
                                                                     </div>
                                                                 </div>
@@ -473,70 +399,12 @@
                                                                         </form>
                                                                     </div>
                                                                 </div>
-                                                                <!-- Modal Delete judul-->
-                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content text-left">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">
-                                                                                    Delete Output
-                                                                                </h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <?php
-                                                                            $this->db->where('id_parent', $t_rkbmd->id);
-                                                                            $this->db->where('isdelete', '0');
-                                                                            $query = $this->db->get('t_rkbmd');
-                                                                            $num = $query->num_rows();
-                                                                            if ($num > 0) { ?>
-                                                                                <div class="modal-body">
-                                                                                    <h4>Maaf Data Output tidak bisa dihapus,silahkan hapus data Barang terlebih dahulu</h4>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                </div>
-                                                                            <?php } else { ?>
-                                                                                <div class="modal-body">
-                                                                                    <h4>Apakah anda yakin ingin menghapus data Output?</h4>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                                                    <a href="<?php echo site_url('t_rkbmd/delete_judul/' . $t_rkbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
-                                                                                </div>
-                                                                            <?php } ?>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
                                                             <?php } elseif ($t_rkbmd->level == 4) { ?>
                                                                 <div class="btn-group" role="group">
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
                                                                         <a href="<?php echo site_url('t_rkbmd/update/' . $t_rkbmd->id . '/' . $t_rkbmd->tahun) ?>" class=" dropdown-item">Edit Barang</a>
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkbmd->id ?>">Delete Barang</button>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- Modal Delete judul-->
-                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content text-left">
-                                                                            <div class="modal-header">
-                                                                                <h4 class="modal-title">
-                                                                                    Delete Barang
-                                                                                </h4>
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <h4>Apakah anda yakin ingin menghapus data Barang?</h4>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                                                <a href="<?php echo site_url('t_rkbmd/delete/' . $t_rkbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
-                                                                            </div>
-                                                                        </div>
+                                                                        <a href="<?php echo site_url('t_rkbmd/delete/' . $t_rkbmd->id . '/' . $t_rkbmd->tahun . '/' . $t_rkbmd->kode_unit) ?>" class="dropdown-item">Hapus Barang</a>
                                                                     </div>
                                                                 </div>
                                                             <?php } ?>

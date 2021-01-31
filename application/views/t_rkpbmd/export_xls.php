@@ -2,7 +2,7 @@
 
 header("Content-type: application/vnd-ms-excel");
 
-header("Content-Disposition: attachment; filename=rkbmd.xls");
+header("Content-Disposition: attachment; filename=rkpbmd.xls");
 
 header("Pragma: no-cache");
 
@@ -19,12 +19,7 @@ $nama_unit = $result->nama_unit;
 <table width="100%">
     <tr>
         <th colspan="20">
-            <h3 class="text-center">PERUBAHAN USULAN RENCANA KEBUTUHAN BARANG MILIK DAERAH</h3>
-        </th>
-    </tr>
-    <tr>
-        <th colspan="20">
-            <h3 class="text-center">(PERUBAHAN RENCANA PENGADAAN )</h3>
+            <h3 class="text-center">PERUBAHAN USULAN RENCANA KEBUTUHAN PEMELIHARAAN BARANG MILIK DAERAH</h3>
         </th>
     </tr>
     <tr>
@@ -50,30 +45,31 @@ $nama_unit = $result->nama_unit;
 <div class="table-responsive-lg">
     <table class="table table-bordered m-0" border="1" width="100%">
         <tr>
-            <th class="text-center" rowspan="2" colspan="4">No</th>
-            <th class="text-center" rowspan="2">Program/Kegiatan/Output</th>
-            <th class="text-center" rowspan="2">Kode Barang</th>
-            <th class="text-center" rowspan="2">Nama Barang</th>
+            <th class="text-center" rowspan="3" colspan="4">No</th>
+            <th class="text-center" rowspan="3">Program/Kegiatan/Output</th>
+            <th class="text-center" colspan="8">Barang Yang Diperlihara</th>
+            <th class="text-center" rowspan="3">Nama Pemelihara</th>
             <th class="text-center" colspan="2">Semula</th>
             <th class="text-center" colspan="2">Menjadi</th>
-            <th class="text-center" rowspan="2">Alasan Perubahan</th>
-            <th class="text-center" colspan="2">Kebutuhan Maksimum </th>
-            <th class="text-center" colspan="4">Data Daftar Barang yang Dapat Dioptimalisasikan</th>
-            <th class="text-center" colspan="2">Kebutuhan Riil BMD </th>
+            <th class="text-center" rowspan="3">Alasan Perubahan</th>
+            <th class="text-center" rowspan="3">Keterangan</th>
         </tr>
         <tr>
-            <th class="text-center">Jumlah</th>
-            <th class="text-center">Satuan</th>
-            <th class="text-center">Jumlah</th>
-            <th class="text-center">Satuan</th>
-            <th class="text-center">Jumlah</th>
-            <th class="text-center">Satuan</th>
-            <th class="text-center">Kode Barang</th>
-            <th class="text-center">Nama Barang</th>
-            <th class="text-center">Jumlah</th>
-            <th class="text-center">Satuan</th>
-            <th class="text-center">Jumlah</th>
-            <th class="text-center">Satuan</th>
+            <th class="text-center" rowspan="2">Kode Barang</th>
+            <th class="text-center" rowspan="2">Nama Barang</th>
+            <th class="text-center" rowspan="2">Jumlah</th>
+            <th class="text-center" rowspan="2">Satuan</th>
+            <th class="text-center" rowspan="2">Status Barang</th>
+            <th class="text-center" colspan="3">Kondisi Barang</th>
+            <th class="text-center" rowspan="2">Jumlah</th>
+            <th class="text-center" rowspan="2">Satuan</th>
+            <th class="text-center" rowspan="2">Jumlah</th>
+            <th class="text-center" rowspan="2">Satuan</th>
+        </tr>
+        <tr>
+            <th class="text-center">B</th>
+            <th class="text-center">RR</th>
+            <th class="text-center">RB</th>
         </tr>
         <tr>
             <th class="text-center" colspan="4">1</th>
@@ -103,49 +99,49 @@ $nama_unit = $result->nama_unit;
             $this->db->where('isdelete', '0');
             $this->db->where('kode_unit', $_GET['kode_unit']);
             $this->db->where('tahun', $_GET['tahun']);
-            $t_rkbmd_data = $this->db->get('v_rkbmd')->result();
-            foreach ($t_rkbmd_data as $t_rkbmd) {
+            $t_rkpbmd_data = $this->db->get('v_rkpbmd')->result();
+            foreach ($t_rkpbmd_data as $t_rkpbmd) {
             ?>
                 <tr>
-                    <?php if ($t_rkbmd->level == 1) { ?>
+                    <?php if ($t_rkpbmd->level == 1) { ?>
                         <td><?php echo ++$program ?>.</td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td colspan="16"><?php echo $t_rkbmd->nama ?></td>
-                    <?php } elseif ($t_rkbmd->level == 2) { ?>
+                        <td colspan="16"><?php echo $t_rkpbmd->nama ?></td>
+                    <?php } elseif ($t_rkpbmd->level == 2) { ?>
                         <td></td>
                         <td><?php echo ++$kegiatan ?>.</td>
                         <td></td>
                         <td></td>
-                        <td colspan="16"><?php echo $t_rkbmd->nama ?></td>
-                    <?php } elseif ($t_rkbmd->level == 3) {  ?>
+                        <td colspan="16"><?php echo $t_rkpbmd->nama ?></td>
+                    <?php } elseif ($t_rkpbmd->level == 3) {  ?>
                         <td></td>
                         <td></td>
                         <td><?php echo ++$output ?>.</td>
                         <td></td>
-                        <td colspan="16"><?php echo $t_rkbmd->nama ?></td>
-                    <?php } elseif ($t_rkbmd->level == 4) {  ?>
+                        <td colspan="16"><?php echo $t_rkpbmd->nama ?></td>
+                    <?php } elseif ($t_rkpbmd->level == 4) {  ?>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td><?php echo ++$barang ?></td>
-                        <td><?php echo $t_rkbmd->nama ?></td>
-                        <td><?php echo $t_rkbmd->kode_barang ?></td>
-                        <td><?php echo $t_rkbmd->nama_barang ?></td>
-                        <td><?php echo $t_rkbmd->semula_jumlah ?></td>
-                        <td><?php echo $t_rkbmd->semula_satuan ?></td>
-                        <td><?php echo $t_rkbmd->menjadi_jumlah ?></td>
-                        <td><?php echo $t_rkbmd->menjadi_satuan ?></td>
-                        <td><?php echo $t_rkbmd->alasan_perubahan ?></td>
-                        <td><?php echo $t_rkbmd->km_jumlah ?></td>
-                        <td><?php echo $t_rkbmd->km_satuan ?></td>
-                        <td><?php echo $t_rkbmd->optim_kode_barang ?></td>
-                        <td><?php echo $t_rkbmd->optim_nama_barang ?></td>
-                        <td><?php echo $t_rkbmd->optim_jumlah ?></td>
-                        <td><?php echo $t_rkbmd->optim_satuan ?></td>
-                        <td><?php echo $t_rkbmd->riil_jumlah ?></td>
-                        <td><?php echo $t_rkbmd->riil_satuan ?></td>
+                        <td><?php echo $t_rkpbmd->nama ?></td>
+                        <td><?php echo $t_rkpbmd->kode_barang ?></td>
+                        <td><?php echo $t_rkpbmd->nama_barang ?></td>
+                        <td><?php echo $t_rkpbmd->jumlah_barang ?></td>
+                        <td><?php echo $t_rkpbmd->satuan_barang ?></td>
+                        <td><?php echo $t_rkpbmd->status_barang ?></td>
+                        <td><?php echo $t_rkpbmd->kondisi_barang_b ?></td>
+                        <td><?php echo $t_rkpbmd->kondisi_barang_rr ?></td>
+                        <td><?php echo $t_rkpbmd->kondisi_barang_rb ?></td>
+                        <td><?php echo $t_rkpbmd->nama_peliharaan ?></td>
+                        <td><?php echo $t_rkpbmd->semula_jumlah ?></td>
+                        <td><?php echo $t_rkpbmd->semula_satuan ?></td>
+                        <td><?php echo $t_rkpbmd->menjadi_jumlah ?></td>
+                        <td><?php echo $t_rkpbmd->menjadi_satuan ?></td>
+                        <td><?php echo $t_rkpbmd->alasan_perubahan ?></td>
+                        <td><?php echo $t_rkpbmd->ket ?></td>
                     <?php } ?>
                 </tr>
             <?php

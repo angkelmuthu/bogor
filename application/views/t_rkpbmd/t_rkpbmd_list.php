@@ -4,7 +4,7 @@
         <div class="col-xl-12">
             <div id="panel-1" class="panel">
                 <div class="panel-hdr">
-                    <h2>KELOLA DATA RKBMD</h2>
+                    <h2>KELOLA DATA RKPBMD</h2>
                     <div class="panel-toolbar">
                         <button class="btn btn-panel" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
                         <button class="btn btn-panel" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
@@ -19,7 +19,7 @@
                                     $this->db->where('kode_unit', $_GET['kode_unit']);
                                     $result = $this->db->get('m_unit_kerja')->row();
                                 ?>
-                                    <a href="<?php echo site_url('t_rkbmd/export_xls?tahun=' . $_GET['tahun'] . '&kode_unit=' . $_GET['kode_unit']) ?>" class="btn btn-sm btn-primary"><i class="fal fa-file-excel"></i> Export Excel</a>
+                                    <a href="<?php echo site_url('t_rkpbmd/export_xls?tahun=' . $_GET['tahun'] . '&kode_unit=' . $_GET['kode_unit']) ?>" class="btn btn-sm btn-primary"><i class="fal fa-file-excel"></i> Export Excel</a>
                                     <?php
                                     if ($this->session->userdata('kode_jenis_unit') != 3) { ?>
 
@@ -27,7 +27,7 @@
                                         <!-- Modal -->
                                         <div class="modal fade" id="tambah-program" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
-                                                <form method="POST" action="<?php echo site_url('t_rkbmd/create_program') ?>">
+                                                <form method="POST" action="<?php echo site_url('t_rkpbmd/create_program') ?>">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h4 class="modal-title">
@@ -107,33 +107,34 @@
                                 <table class="table table-bordered table-hover table-striped">
                                     <thead class="thead-themed">
                                         <tr>
-                                            <th class="text-center" rowspan="2" colspan="4">No</th>
-                                            <th class="text-center" rowspan="2">Program/Kegiatan/Output</th>
-                                            <th class="text-center" rowspan="2">Kode Barang</th>
-                                            <th class="text-center" rowspan="2">Nama Barang</th>
+                                            <th class="text-center" rowspan="3" colspan="4">No</th>
+                                            <th class="text-center" rowspan="3">Program/Kegiatan/Output</th>
+                                            <th class="text-center" colspan="8">Barang Yang Diperlihara</th>
+                                            <th class="text-center" rowspan="3">Nama Pemelihara</th>
                                             <th class="text-center" colspan="2">Semula</th>
                                             <th class="text-center" colspan="2">Menjadi</th>
-                                            <th class="text-center" rowspan="2">Alasan Perubahan</th>
-                                            <th class="text-center" colspan="2">Kebutuhan Maksimum </th>
-                                            <th class="text-center" colspan="4">Data Daftar Barang yang Dapat Dioptimalisasikan</th>
-                                            <th class="text-center" colspan="2">Kebutuhan Riil BMD </th>
+                                            <th class="text-center" rowspan="3">Alasan Perubahan</th>
+                                            <th class="text-center" rowspan="3">Keterangan</th>
                                             <?php if ($this->session->userdata('kode_jenis_unit') != 3) { ?>
-                                                <th class="text-center" rowspan="2">Action</th>
+                                                <th class="text-center" rowspan="3">Action</th>
                                             <?php } ?>
                                         </tr>
                                         <tr>
-                                            <th class="text-center">Jumlah</th>
-                                            <th class="text-center">Satuan</th>
-                                            <th class="text-center">Jumlah</th>
-                                            <th class="text-center">Satuan</th>
-                                            <th class="text-center">Jumlah</th>
-                                            <th class="text-center">Satuan</th>
-                                            <th class="text-center">Kode Barang</th>
-                                            <th class="text-center">Nama Barang</th>
-                                            <th class="text-center">Jumlah</th>
-                                            <th class="text-center">Satuan</th>
-                                            <th class="text-center">Jumlah</th>
-                                            <th class="text-center">Satuan</th>
+                                            <th class="text-center" rowspan="2">Kode Barang</th>
+                                            <th class="text-center" rowspan="2">Nama Barang</th>
+                                            <th class="text-center" rowspan="2">Jumlah</th>
+                                            <th class="text-center" rowspan="2">Satuan</th>
+                                            <th class="text-center" rowspan="2">Status Barang</th>
+                                            <th class="text-center" colspan="3">Kondisi Barang</th>
+                                            <th class="text-center" rowspan="2">Jumlah</th>
+                                            <th class="text-center" rowspan="2">Satuan</th>
+                                            <th class="text-center" rowspan="2">Jumlah</th>
+                                            <th class="text-center" rowspan="2">Satuan</th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-center">B</th>
+                                            <th class="text-center">RR</th>
+                                            <th class="text-center">RB</th>
                                         </tr>
                                         <tr>
                                             <th class="text-center" colspan="4">1</th>
@@ -168,65 +169,65 @@
                                             $this->db->where('isdelete', '0');
                                             $this->db->where('kode_unit', $_GET['kode_unit']);
                                             $this->db->where('tahun', $_GET['tahun']);
-                                            $t_rkbmd_data = $this->db->get('v_rkbmd')->result();
-                                            foreach ($t_rkbmd_data as $t_rkbmd) {
+                                            $t_rkpbmd_data = $this->db->get('v_rkpbmd')->result();
+                                            foreach ($t_rkpbmd_data as $t_rkpbmd) {
                                             ?>
                                                 <tr>
-                                                    <?php if ($t_rkbmd->level == 1) { ?>
+                                                    <?php if ($t_rkpbmd->level == 1) { ?>
                                                         <td><?php echo ++$program ?>.</td>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td colspan="16"><?php echo $t_rkbmd->nama ?></td>
-                                                    <?php } elseif ($t_rkbmd->level == 2) { ?>
+                                                        <td colspan="16"><?php echo $t_rkpbmd->nama ?></td>
+                                                    <?php } elseif ($t_rkpbmd->level == 2) { ?>
                                                         <td></td>
                                                         <td><?php echo ++$kegiatan ?>.</td>
                                                         <td></td>
                                                         <td></td>
-                                                        <td colspan="16"><?php echo $t_rkbmd->nama ?></td>
-                                                    <?php } elseif ($t_rkbmd->level == 3) {  ?>
+                                                        <td colspan="16"><?php echo $t_rkpbmd->nama ?></td>
+                                                    <?php } elseif ($t_rkpbmd->level == 3) {  ?>
                                                         <td></td>
                                                         <td></td>
                                                         <td><?php echo ++$output ?>.</td>
                                                         <td></td>
-                                                        <td colspan="16"><?php echo $t_rkbmd->nama ?></td>
-                                                    <?php } elseif ($t_rkbmd->level == 4) {  ?>
+                                                        <td colspan="16"><?php echo $t_rkpbmd->nama ?></td>
+                                                    <?php } elseif ($t_rkpbmd->level == 4) {  ?>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td><?php echo ++$barang ?></td>
-                                                        <td><?php echo $t_rkbmd->nama ?></td>
-                                                        <td><?php echo $t_rkbmd->kode_barang ?></td>
-                                                        <td><?php echo $t_rkbmd->nama_barang ?></td>
-                                                        <td><?php echo $t_rkbmd->semula_jumlah ?></td>
-                                                        <td><?php echo $t_rkbmd->semula_satuan ?></td>
-                                                        <td><?php echo $t_rkbmd->menjadi_jumlah ?></td>
-                                                        <td><?php echo $t_rkbmd->menjadi_satuan ?></td>
-                                                        <td><?php echo $t_rkbmd->alasan_perubahan ?></td>
-                                                        <td><?php echo $t_rkbmd->km_jumlah ?></td>
-                                                        <td><?php echo $t_rkbmd->km_satuan ?></td>
-                                                        <td><?php echo $t_rkbmd->optim_kode_barang ?></td>
-                                                        <td><?php echo $t_rkbmd->optim_nama_barang ?></td>
-                                                        <td><?php echo $t_rkbmd->optim_jumlah ?></td>
-                                                        <td><?php echo $t_rkbmd->optim_satuan ?></td>
-                                                        <td><?php echo $t_rkbmd->riil_jumlah ?></td>
-                                                        <td><?php echo $t_rkbmd->riil_satuan ?></td>
+                                                        <td><?php echo $t_rkpbmd->nama ?></td>
+                                                        <td><?php echo $t_rkpbmd->kode_barang ?></td>
+                                                        <td><?php echo $t_rkpbmd->nama_barang ?></td>
+                                                        <td><?php echo $t_rkpbmd->jumlah_barang ?></td>
+                                                        <td><?php echo $t_rkpbmd->satuan_barang ?></td>
+                                                        <td><?php echo $t_rkpbmd->status_barang ?></td>
+                                                        <td><?php echo $t_rkpbmd->kondisi_barang_b ?></td>
+                                                        <td><?php echo $t_rkpbmd->kondisi_barang_rr ?></td>
+                                                        <td><?php echo $t_rkpbmd->kondisi_barang_rb ?></td>
+                                                        <td><?php echo $t_rkpbmd->nama_peliharaan ?></td>
+                                                        <td><?php echo $t_rkpbmd->semula_jumlah ?></td>
+                                                        <td><?php echo $t_rkpbmd->semula_satuan ?></td>
+                                                        <td><?php echo $t_rkpbmd->menjadi_jumlah ?></td>
+                                                        <td><?php echo $t_rkpbmd->menjadi_satuan ?></td>
+                                                        <td><?php echo $t_rkpbmd->alasan_perubahan ?></td>
+                                                        <td><?php echo $t_rkpbmd->ket ?></td>
                                                     <?php } ?>
                                                     <?php if ($this->session->userdata('kode_jenis_unit') != 3) { ?>
                                                         <td style="text-align:center" width="100px">
-                                                            <?php if ($t_rkbmd->level == 1) { ?>
+                                                            <?php if ($t_rkpbmd->level == 1) { ?>
                                                                 <div class="btn-group" role="group">
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkbmd->id ?>">Edit Program</button>
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkbmd->id ?>">Delete Program</button>
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#tambah-kegiatan<?php echo $t_rkbmd->id ?>">Tambah Kegiatan</button>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkpbmd->id ?>">Edit Program</button>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkpbmd->id ?>">Delete Program</button>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#tambah-kegiatan<?php echo $t_rkpbmd->id ?>">Tambah Kegiatan</button>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal Edit Program-->
-                                                                <div class="modal fade" id="edit-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                <div class="modal fade" id="edit-judul<?php echo $t_rkpbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
-                                                                        <form method="POST" action="<?php echo site_url('t_rkbmd/update_judul') ?>">
+                                                                        <form method="POST" action="<?php echo site_url('t_rkpbmd/update_judul') ?>">
                                                                             <div class="modal-content text-left">
                                                                                 <div class="modal-header">
                                                                                     <h4 class="modal-title">
@@ -240,11 +241,11 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <input type="hidden" name="id" value="<?php echo $t_rkbmd->id ?>">
-                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <input type="hidden" name="id" value="<?php echo $t_rkpbmd->id ?>">
+                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkpbmd->tahun ?>">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label" for="simpleinput">Nama Program</label>
-                                                                                        <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkbmd->nama ?>" class="form-control" required>
+                                                                                        <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkpbmd->nama ?>" class="form-control" required>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="modal-footer">
@@ -256,7 +257,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal Delete judul-->
-                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkpbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
                                                                         <div class="modal-content text-left">
                                                                             <div class="modal-header">
@@ -268,9 +269,9 @@
                                                                                 </button>
                                                                             </div>
                                                                             <?php
-                                                                            $this->db->where('id_parent', $t_rkbmd->id);
+                                                                            $this->db->where('id_parent', $t_rkpbmd->id);
                                                                             $this->db->where('isdelete', '0');
-                                                                            $query = $this->db->get('t_rkbmd');
+                                                                            $query = $this->db->get('t_rkpbmd');
                                                                             $num = $query->num_rows();
                                                                             if ($num > 0) { ?>
                                                                                 <div class="modal-body">
@@ -285,16 +286,16 @@
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                                                    <a href="<?php echo site_url('t_rkbmd/delete_judul/' . $t_rkbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
+                                                                                    <a href="<?php echo site_url('t_rkpbmd/delete_judul/' . $t_rkpbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
                                                                                 </div>
                                                                             <?php } ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal -->
-                                                                <div class="modal fade" id="tambah-kegiatan<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                <div class="modal fade" id="tambah-kegiatan<?php echo $t_rkpbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
-                                                                        <form method="POST" action="<?php echo site_url('t_rkbmd/create_kegiatan') ?>">
+                                                                        <form method="POST" action="<?php echo site_url('t_rkpbmd/create_kegiatan') ?>">
                                                                             <div class="modal-content text-left">
                                                                                 <div class="modal-header">
                                                                                     <h4 class="modal-title">
@@ -308,8 +309,8 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <input type="hidden" name="id_parent" value="<?php echo $t_rkbmd->id ?>">
-                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <input type="hidden" name="id_parent" value="<?php echo $t_rkpbmd->id ?>">
+                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkpbmd->tahun ?>">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label" for="simpleinput">Nama Kegiatan</label>
                                                                                         <input type="text" name="nama" id="simpleinput" class="form-control" required>
@@ -323,19 +324,19 @@
                                                                         </form>
                                                                     </div>
                                                                 </div>
-                                                            <?php } elseif ($t_rkbmd->level == 2) {  ?>
+                                                            <?php } elseif ($t_rkpbmd->level == 2) {  ?>
                                                                 <div class="btn-group" role="group">
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkbmd->id ?>">Edit Kegiatan</button>
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkbmd->id ?>">Delete Kegiatan</button>
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#tambah-output<?php echo $t_rkbmd->id ?>">Tambah Output</button>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkpbmd->id ?>">Edit Kegiatan</button>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkpbmd->id ?>">Delete Kegiatan</button>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#tambah-output<?php echo $t_rkpbmd->id ?>">Tambah Output</button>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal Edit Program-->
-                                                                <div class="modal fade" id="edit-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                <div class="modal fade" id="edit-judul<?php echo $t_rkpbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
-                                                                        <form method="POST" action="<?php echo site_url('t_rkbmd/update_judul') ?>">
+                                                                        <form method="POST" action="<?php echo site_url('t_rkpbmd/update_judul') ?>">
                                                                             <div class="modal-content text-left">
                                                                                 <div class="modal-header">
                                                                                     <h4 class="modal-title">
@@ -349,11 +350,11 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <input type="hidden" name="id" value="<?php echo $t_rkbmd->id ?>">
-                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <input type="hidden" name="id" value="<?php echo $t_rkpbmd->id ?>">
+                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkpbmd->tahun ?>">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label" for="simpleinput">Nama Kegiatan</label>
-                                                                                        <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkbmd->nama ?>" class="form-control" required>
+                                                                                        <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkpbmd->nama ?>" class="form-control" required>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="modal-footer">
@@ -365,7 +366,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal Delete judul-->
-                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkpbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
                                                                         <div class="modal-content text-left">
                                                                             <div class="modal-header">
@@ -377,9 +378,9 @@
                                                                                 </button>
                                                                             </div>
                                                                             <?php
-                                                                            $this->db->where('id_parent', $t_rkbmd->id);
+                                                                            $this->db->where('id_parent', $t_rkpbmd->id);
                                                                             $this->db->where('isdelete', '0');
-                                                                            $query = $this->db->get('t_rkbmd');
+                                                                            $query = $this->db->get('t_rkpbmd');
                                                                             $num = $query->num_rows();
                                                                             if ($num > 0) { ?>
                                                                                 <div class="modal-body">
@@ -394,16 +395,16 @@
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                                                    <a href="<?php echo site_url('t_rkbmd/delete_judul/' . $t_rkbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
+                                                                                    <a href="<?php echo site_url('t_rkpbmd/delete_judul/' . $t_rkpbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
                                                                                 </div>
                                                                             <?php } ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal -->
-                                                                <div class="modal fade" id="tambah-output<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                <div class="modal fade" id="tambah-output<?php echo $t_rkpbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
-                                                                        <form method="POST" action="<?php echo site_url('t_rkbmd/create_output') ?>">
+                                                                        <form method="POST" action="<?php echo site_url('t_rkpbmd/create_output') ?>">
                                                                             <div class="modal-content text-left">
                                                                                 <div class="modal-header">
                                                                                     <h4 class="modal-title">
@@ -417,8 +418,8 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <input type="hidden" name="id_parent" value="<?php echo $t_rkbmd->id ?>">
-                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <input type="hidden" name="id_parent" value="<?php echo $t_rkpbmd->id ?>">
+                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkpbmd->tahun ?>">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label" for="simpleinput">Nama Output</label>
                                                                                         <input type="text" name="nama" id="simpleinput" class="form-control" required>
@@ -432,19 +433,19 @@
                                                                         </form>
                                                                     </div>
                                                                 </div>
-                                                            <?php } elseif ($t_rkbmd->level == 3) { ?>
+                                                            <?php } elseif ($t_rkpbmd->level == 3) { ?>
                                                                 <div class="btn-group" role="group">
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkbmd->id ?>">Edit Output</button>
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkbmd->id ?>">Delete Output</button>
-                                                                        <a href="<?php echo site_url('t_rkbmd/create/' . $t_rkbmd->id . '/' . $t_rkbmd->tahun) ?>" class="dropdown-item">Tambah Barang</a>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#edit-judul<?php echo $t_rkpbmd->id ?>">Edit Output</button>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkpbmd->id ?>">Delete Output</button>
+                                                                        <a href="<?php echo site_url('t_rkpbmd/create/' . $t_rkpbmd->id . '/' . $t_rkpbmd->tahun) ?>" class="dropdown-item">Tambah Barang</a>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal Edit Output-->
-                                                                <div class="modal fade" id="edit-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                <div class="modal fade" id="edit-judul<?php echo $t_rkpbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
-                                                                        <form method="POST" action="<?php echo site_url('t_rkbmd/update_judul') ?>">
+                                                                        <form method="POST" action="<?php echo site_url('t_rkpbmd/update_judul') ?>">
                                                                             <div class="modal-content text-left">
                                                                                 <div class="modal-header">
                                                                                     <h4 class="modal-title">
@@ -458,11 +459,11 @@
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <input type="hidden" name="id" value="<?php echo $t_rkbmd->id ?>">
-                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkbmd->tahun ?>">
+                                                                                    <input type="hidden" name="id" value="<?php echo $t_rkpbmd->id ?>">
+                                                                                    <input type="hidden" name="tahun" value="<?php echo $t_rkpbmd->tahun ?>">
                                                                                     <div class="form-group">
                                                                                         <label class="form-label" for="simpleinput">Nama Output</label>
-                                                                                        <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkbmd->nama ?>" class="form-control" required>
+                                                                                        <input type="text" name="nama" id="simpleinput" value="<?php echo $t_rkpbmd->nama ?>" class="form-control" required>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="modal-footer">
@@ -474,7 +475,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal Delete judul-->
-                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkpbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
                                                                         <div class="modal-content text-left">
                                                                             <div class="modal-header">
@@ -486,9 +487,9 @@
                                                                                 </button>
                                                                             </div>
                                                                             <?php
-                                                                            $this->db->where('id_parent', $t_rkbmd->id);
+                                                                            $this->db->where('id_parent', $t_rkpbmd->id);
                                                                             $this->db->where('isdelete', '0');
-                                                                            $query = $this->db->get('t_rkbmd');
+                                                                            $query = $this->db->get('t_rkpbmd');
                                                                             $num = $query->num_rows();
                                                                             if ($num > 0) { ?>
                                                                                 <div class="modal-body">
@@ -503,22 +504,22 @@
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                                                    <a href="<?php echo site_url('t_rkbmd/delete_judul/' . $t_rkbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
+                                                                                    <a href="<?php echo site_url('t_rkpbmd/delete_judul/' . $t_rkpbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
                                                                                 </div>
                                                                             <?php } ?>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            <?php } elseif ($t_rkbmd->level == 4) { ?>
+                                                            <?php } elseif ($t_rkpbmd->level == 4) { ?>
                                                                 <div class="btn-group" role="group">
                                                                     <button type="button" class="btn btn-secondary dropdown-toggle waves-effect waves-themed" data-toggle="dropdown" aria-expanded="false">Setting</button>
                                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 35px; left: 0px;">
-                                                                        <a href="<?php echo site_url('t_rkbmd/update/' . $t_rkbmd->id . '/' . $t_rkbmd->tahun) ?>" class=" dropdown-item">Edit Barang</a>
-                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkbmd->id ?>">Delete Barang</button>
+                                                                        <a href="<?php echo site_url('t_rkpbmd/update/' . $t_rkpbmd->id . '/' . $t_rkpbmd->tahun) ?>" class=" dropdown-item">Edit Barang</a>
+                                                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#delete-judul<?php echo $t_rkpbmd->id ?>">Delete Barang</button>
                                                                     </div>
                                                                 </div>
                                                                 <!-- Modal Delete judul-->
-                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                                                                <div class="modal fade" id="delete-judul<?php echo $t_rkpbmd->id ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
                                                                         <div class="modal-content text-left">
                                                                             <div class="modal-header">
@@ -534,7 +535,7 @@
                                                                             </div>
                                                                             <div class="modal-footer">
                                                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                                                <a href="<?php echo site_url('t_rkbmd/delete/' . $t_rkbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
+                                                                                <a href="<?php echo site_url('t_rkpbmd/delete/' . $t_rkpbmd->id . '/' . $_GET['tahun'] . '/' . $_GET['kode_unit']) ?>" class="btn btn-primary">Hapus</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>

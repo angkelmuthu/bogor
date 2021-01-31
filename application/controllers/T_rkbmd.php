@@ -132,7 +132,7 @@ class T_rkbmd extends CI_Controller
 			'created_by' => $this->session->userdata('full_name'),
 			'created_date' => date('Y-m-d H:i:s'),
 			//'updated_by' => date('Y-m-d H:i:s'),
-			//'updated_date' => $this->session->userdata('nama'),
+			//'updated_date' => $this->session->userdata('full_name'),
 			'isdelete' => 0,
 		);
 
@@ -156,7 +156,7 @@ class T_rkbmd extends CI_Controller
 			'created_by' => $this->session->userdata('full_name'),
 			'created_date' => date('Y-m-d H:i:s'),
 			//'updated_by' => date('Y-m-d H:i:s'),
-			//'updated_date' => $this->session->userdata('nama'),
+			//'updated_date' => $this->session->userdata('full_name'),
 			'isdelete' => 0,
 		);
 
@@ -171,8 +171,8 @@ class T_rkbmd extends CI_Controller
 	{
 		$data = array(
 			'nama' => $this->input->post('nama', TRUE),
-			'updated_by' => date('Y-m-d H:i:s'),
-			'updated_date' => $this->session->userdata('nama'),
+			'updated_by' => $this->session->userdata('full_name'),
+			'updated_date' => date('Y-m-d H:i:s'),
 			'isdelete' => 0,
 		);
 		$this->T_rkbmd_model->update($this->input->post('id', TRUE), $data);
@@ -181,6 +181,20 @@ class T_rkbmd extends CI_Controller
 			<span aria-hidden="true"><i class="fal fa-times"></i></span>
 		</button><strong> Create Record Success</strong></div>');
 		redirect(site_url('t_rkbmd?tahun=' . $this->input->post('tahun') . '&kode_unit=' . $this->session->userdata('kode_unit')));
+	}
+	public function delete_judul($id, $tahun, $kode_unit)
+	{
+		$data = array(
+			'updated_by' => $this->session->userdata('full_name'),
+			'updated_date' => date('Y-m-d H:i:s'),
+			'isdelete' => 1,
+		);
+		$this->T_rkbmd_model->update($id, $data);
+		$this->session->set_flashdata('message', '<div class="alert bg-info-500" role="alert">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true"><i class="fal fa-times"></i></span>
+		</button><strong> Data Berhasil di Hapus</strong></div>');
+		redirect(site_url('t_rkbmd?tahun=' . $tahun . '&kode_unit=' . $kode_unit));
 	}
 	public function create_kegiatan()
 	{
@@ -193,7 +207,7 @@ class T_rkbmd extends CI_Controller
 			'created_by' => $this->session->userdata('full_name'),
 			'created_date' => date('Y-m-d H:i:s'),
 			//'updated_by' => date('Y-m-d H:i:s'),
-			//'updated_date' => $this->session->userdata('nama'),
+			//'updated_date' => $this->session->userdata('full_name'),
 			'isdelete' => 0,
 		);
 
@@ -216,7 +230,7 @@ class T_rkbmd extends CI_Controller
 			'created_by' => $this->session->userdata('full_name'),
 			'created_date' => date('Y-m-d H:i:s'),
 			//'updated_by' => date('Y-m-d H:i:s'),
-			//'updated_date' => $this->session->userdata('nama'),
+			//'updated_date' => $this->session->userdata('full_name'),
 			'isdelete' => 0,
 		);
 
